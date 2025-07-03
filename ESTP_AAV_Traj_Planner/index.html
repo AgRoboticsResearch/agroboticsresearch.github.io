@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
+  <meta property="og:url" content="URL OF THE WEBSITE" />
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Efficient and Safe Trajectory Planning for Autonomous Agricultural Vehicle Headland Turning in Cluttered
+    Orchard Environments</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Efficient and Safe Trajectory Planning for Autonomous Agricultural
+              Vehicle Headland Turning in Cluttered Orchard Environments</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/peng-wei-3467b0b3/" target="_blank">Peng Wei</a>,</span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/peng-chen-73b546129/" target="_blank">Chen
+                  Peng</a><sup>*</sup>,</span>
+              <span class="author-block">
+                <a href="https://caseypen.github.io/people/" target="_blank">Wenwu Lu</a>,</span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/yuankai-zhu-3bb575110/" target="_blank">Yuankai Zhu</a>,</span>
+              <span class="author-block">
+                <a href="https://faculty.engineering.ucdavis.edu/vougioukas/" target="_blank">Stavros
+                  Vougioukas</a>,</span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/zhenghao-fei-6b786938/" target="_blank">Zhenghao
+                  Fei</a>,</span>
+              <span class="author-block">
+                <a href="https://caseypen.github.io/people/" target="_blank">Zhikang Ge</a>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Zhejiang University and University of California, Davis<br>IEEE ROBOTICS AND
+                AUTOMATION LETTERS (RA-L)-2025</span>
+              <span class="eql-cntrb"><small><br><sup>*</sup>Indicates corresponding author</small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2501.10636" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/AgRoboticsResearch/ESTP_AAV_Traj_Planner" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2501.10636" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="hero teaser">
+    <div class="columns is-centered has-text-centered">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="static/images/image1.png"></img>
+          <h2 class="subtitle has-text-centered">
+            Illustration of an electric tractor equipped with a pruner executing a turning trajectory in a headland.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Autonomous agricultural vehicles (AAVs), including field robots and autonomous tractors, are becoming
+              essential in modern farming by improving efficiency and reducing labor costs. A critical task in AAV
+              operations is headland turning between crop rows. This task is challenging in orchards with limited
+              headland space, irregular boundaries, operational constraints, and static obstacles. While traditional
+              trajectory planning methods work well in arable farming, they often fail in cluttered orchard
+              environments. This letter presents a novel trajectory planner that enhances the safety and efficiency of
+              AAV headland maneuvers, leveraging advancements in autonomous driving. Our approach includes an efficient
+              front-end algorithm and a highperformance back-end optimization. Applied to vehicles with various
+              implements, it outperforms state-of-the-art methods in both standard and challenging orchard fields. This
+              work bridges agricultural and autonomous driving technologies, facilitating a broader adoption of AAVs in
+              complex orchards.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section hero">
+    <h2 class="title is-3 has-text-centered">Covering-circle collision detection</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="static/images/covering_cricle.png"></img>
+          <h2 class="subtitle has-text-centered">
+            Process of determining optimal covering circles for vehicle and implement. The black areas represent trees,
+            and the gray areas represent map inflation.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section hero is-light">
+    <h2 class="title is-3 has-text-centered">Multiple safe corridors generation</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="static/images/corridor.png"></img>
+          <h2 class="subtitle has-text-centered">
+            Illustration of (a) geometric representations of obstacles and the AAV; (b) results from the front-end
+            search using covering circles; (c) the parameterized initial trajectory with multiple segments, piece
+            points, and constraint points; and (d) the optimized trajectory following the back-end refinement.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">Results in Simulations</h2>
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item">
+            <img src="static/images/exp1.png" alt="MY ALT TEXT" />
+            <h2 class="subtitle has-text-centered">
+              Comparison between (a) our planner and (b) SRA results carrying a KMS sprayer in Case II. The red dashed
+              line shows the front-end trajectory and the green line shows the optimized trajectory from the back end.
+              Safe corridors for both the vehicle and implement are depicted. The covering rectangle in SRA is shown
+              with dashed black lines, and the dashed blue lines represent the pull-out trajectories.
+            </h2>
+          </div>
+          <div class="item">
+            <img src="static/images/exp2.png" alt="MY ALT TEXT" />
+            <h2 class="subtitle has-text-centered">
+              AAV states over time for the optimal trajectory with a KMS sprayer in Case IV.
+            </h2>
+          </div>
+          <div class="item">
+            <img src="static/images/exp3.png" alt="MY ALT TEXT" />
+            <h2 class="subtitle has-text-centered">
+              Illustration of (a) replanning triggered by tracking deviation and newly detected obstacles, and (b) the
+              resulting replanned trajectory.
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .carousel .item img {
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .carousel .item img:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      transform: translateY(-3px);
+    }
+
+    .hero-body img:not(.carousel .item img) {
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hero-body img:not(.carousel .item img):hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      transform: translateY(-3px);
+    }
+  </style>
+  <section class="section hero is-light">
+    <h2 class="title is-3 has-text-centered">Results on a Physical Robot</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="static/images/real_exp.png"></img>
+          <h2 class="subtitle has-text-centered">
+            Results on a tricycle robot carrying a spray boom: (a) without obstacles, and (b) with obstacles in the
+            headland space. The geometric representations of the environment and AAV are shown, with planned
+            trajectories as black dashed lines and actual trajectories color-coded by velocity.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3 has-text-centered">Video Presentation</h2>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+
+            <div class="publication-video">
+              <iframe src="static/videos/banner_video.mp4" frameborder="0" allow="encrypted-media" allowfullscreen
+                muted></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section is-light" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@ARTICLE{10854653,
+  author={Wei, Peng and Peng, Chen and Lu, Wenwu and Zhu, Yuankai and Vougioukas, Stavros and Fei, Zhenghao and Ge, Zhikang},
+  journal={IEEE Robotics and Automation Letters}, 
+  title={Efficient and Safe Trajectory Planning for Autonomous Agricultural Vehicle Headland Turning in Cluttered Orchard Environments}, 
+  year={2025},
+  volume={10},
+  number={3},
+  pages={2574-2581},
+  keywords={Trajectory;Turning;Trajectory planning;Collision avoidance;Planning;Optimization;Geometry;Crops;Autonomous vehicles;Vehicle dynamics;Agricultural automation;motion and path planning;collision avoidance;optimization and optimal control;agricultural autonomous vehicle},
+  doi={10.1109/LRA.2025.3534056}
+}
+</code></pre>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the
+              footer. <br> This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
