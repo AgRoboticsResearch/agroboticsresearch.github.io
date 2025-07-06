@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
+  <meta property="og:url" content="URL OF THE WEBSITE" />
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Optimal Scheduling of a Dual-Arm Robot for Efficient Strawberry Harvesting in Plant Factories</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Optimal Scheduling of a Dual-Arm Robot for Efficient Strawberry Harvesting in Plant Factories</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/yuankai-zhu-3bb575110/" target="_blank">Yuankai Zhu</a><sup>†</sup>,</span>
+              <span class="author-block">
+                <a href="https://caseypen.github.io/people/" target="_blank">Wenwu Lu</a><sup>†</sup>,</span>             
+                <span class="author-block">
+                  <a href="https://cn.linkedin.com/in/guoqiang-ren-7a3440203" target="_blank">Guoqiang Ren</a>,</span>
+                <span class="author-block">
+                  <a href="https://person.zju.edu.cn/en/0089059" target="_blank">Yibin Ying</a>,</span>
+                <span class="author-block">
+                <a href="https://faculty.engineering.ucdavis.edu/vougioukas/" target="_blank">Stavros
+                  Vougioukas</a>,</span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/peng-chen-73b546129/" target="_blank">Chen Peng</a><sup>*</sup>,</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Zhejiang University and University of California, Davis<br>IEEE/RSJ International Conference on Intelligent Robots and Systems (iROS)-2025</span>
+              <span class="eql-cntrb"><small><br><sup>†</sup>Indicates co-first authors<sup>*</sup>Indicates corresponding author</small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2501.10636" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="hero teaser">
+    <div class="columns is-centered has-text-centered">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="static/images/front-cover-page-with-arrow.jpg"></img>
+          <h2 class="subtitle has-text-centered">
+            Stop-and-harvest strategy for strawberry picking robot with dual arms. The robot harvests some fruits on both sides at one stop, then moves to the next until all are harvested.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Plant factory cultivation is widely recognized for
+              its ability to optimize resource use and boost crop yields. To fur-
+              ther increase the efficiency in these environments, we propose
+              a mixed-integer linear programming (MILP) framework that
+              systematically schedules and coordinates dual-arm harvesting
+              tasks, minimizing the overall harvesting makespan based on
+              pre-mapped fruit locations. Specifically, we focus on a spe-
+              cialized dual-arm harvesting robot and employ pose coverage
+              analysis of its end effector to maximize picking reachability.
+              Additionally, we compare the performance of the dual-arm
+              configuration with that of a single-arm vehicle, demonstrating
+              that the dual-arm system can nearly double efficiency when
+              fruit densities are roughly equal on both sides. Extensive
+              simulations show a 10–20% increase in throughput and a
+              significant reduction in the number of stops compared to non-
+              optimized methods. These results underscore the advantages of
+              an optimal scheduling approach in improving the scalability
+              and efficiency of robotic harvesting in plant factories.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section hero">
+    <h2 class="title is-3 has-text-centered">Analysis of the Picking area for SCARA Arm</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="static/images/fruit-distribution-different-pick-all.jpg"style="height: 300px; width: auto;"></img>
+          <h2 class="subtitle has-text-centered">
+            (a) The coverage area of different ways of picking for
+            the SCARA robot arm: red represents the position arrival;
+            yellow represents the end-effector can arrive in one angle
+            among the range [-45°,45°]; blue represents the end-effector
+            can arrive at 0°; green represents the end-effector can arrive
+            at any angle between [-45°,45°]; (b) The coverage area where
+            the end-effector can arrive at 0°, where orange represents the
+            single-sided covering area.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section hero is-light">
+    <h2 class="title is-3 has-text-centered">Covering area of the dual robot arm</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="static/images/double_arm_workspace_analysis.png"style="height: 400px; width: auto;"></img>
+          <h2 class="subtitle has-text-centered">
+            Reachable workspace of the SCARA robot arm
+            in a cross-sectional plane, highlighting adjustments in the
+            horizontal position (D) and rotation angles (θL and θR) for
+            optimal alignment with the fruit distribution.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">MILP planning results</h2>
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <!-- Common item style: fixed-size container with overflow hidden -->
+          <div class="item" style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 600px; height: 400px; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+              <img src="static/images/example-result.png" alt="Result 1"
+                   style="transform: rotate(90deg); height: 600px; width: auto;" />
+            </div>
+            <h2 class="subtitle has-text-centered" style="max-width: 600px;">
+              The output of our proposed method will output the
+              optimal stop positions and the associated fruits relative to
+              each stop position.
+            </h2>
+          </div>
+  
+          <div class="item" style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 600px; height: 400px; overflow: hidden;">
+              <img src="static/images/comparison_runtimes.png" alt="Result 2"
+                   style="width: 100%; height: 100%; object-fit: cover;" />
+            </div>
+            <h2 class="subtitle has-text-centered" style="max-width: 600px;">
+              Performance comparison of different harvesting strategies with respect to Number of Stops.
+            </h2>
+          </div>
+  
+          <div class="item" style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 600px; height: 400px; overflow: hidden;">
+              <img src="static/images/comparison_stop_numbers.png" alt="Result 3"
+                   style="width: 100%; height: 100%; object-fit: cover;" />
+            </div>
+            <h2 class="subtitle has-text-centered" style="max-width: 600px;">
+              Performance comparison of different harvesting strategies with respect to Throughputs.
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <style>
+    .carousel .item img {
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .carousel .item img:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      transform: translateY(-3px);
+    }
+
+    .hero-body img:not(.carousel .item img) {
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hero-body img:not(.carousel .item img):hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      transform: translateY(-3px);
+    }
+  </style>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3 has-text-centered">Video Presentation</h2>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+
+            <div class="publication-video">
+              <iframe src="static/videos/2108553669.mp4" frameborder="0" allow="encrypted-media" allowfullscreen
+                muted></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section is-light" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@ARTICLE{10854653,
+                author={Wei, Peng and Peng, Chen and Lu, Wenwu and Zhu, Yuankai and Vougioukas, Stavros and Fei, Zhenghao and Ge, Zhikang},
+                journal={IEEE Robotics and Automation Letters}, 
+                title={Efficient and Safe Trajectory Planning for Autonomous Agricultural Vehicle Headland Turning in Cluttered Orchard Environments}, 
+                year={2025},
+                volume={10},
+                number={3},
+                pages={2574-2581},
+                keywords={Trajectory;Turning;Trajectory planning;Collision avoidance;Planning;Optimization;Geometry;Crops;Autonomous vehicles;Vehicle dynamics;Agricultural automation;motion and path planning;collision avoidance;optimization and optimal control;agricultural autonomous vehicle},
+                doi={10.1109/LRA.2025.3534056}
+              }
+</code></pre>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the
+              footer. <br> This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
