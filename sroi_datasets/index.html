@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>SROI Datasets</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=1000">
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon" type="image/x-icon" href="images/icon.png">
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-1NLS9R0S0P"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'G-1NLS9R0S0P');
+		</script>
+
+		<meta property="og:url"           content="https://agroboticsresearch.github.io/sroi_datasets_webpage/" />
+		<meta property="og:type"          content="website" />
+		<meta property="og:title"         content="SROI Datasets - Strawberry Robotic Operation Interface Datasets" />
+		<meta property="og:description"   content="A comprehensive dataset for imitation learning in robotic strawberry picking, featuring human demonstrations, visual data, and trajectory information for developing autonomous picking systems." />
+		
+		<style>
+			body {
+				color: #000000;
+			}
+		</style>
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+		<!-- Bulma (CSS framework) -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+
+	</head>
+	<body id="top">
+
+		<!-- Main -->
+			<div id="main" style="padding-bottom:1em; padding-top: 1em; width: 60em; max-width: 70em; margin-left: auto; margin-right: auto;">
+					<section id="four">
+
+						<h1 style="text-align: center; margin-bottom: 0.1em; color: #e02793; font-size: 300%; font-weight: bold;">
+							🍓SROI DATASETS🍓
+						</h1>
+						
+						<h2 style="text-align: center; white-space: nowrap; color: #000000; font-size: 170%; margin-bottom: 0.5em;">
+							Strawberry Robotic Operation Interface Datasets
+						</h2>
+						
+						<div class="publication-authors" style="text-align: center; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+							<a href="#" style="color: #2F855A;">Hou Linsheng</a>,
+							<a href="#" style="color: #2F855A;">Lu Wenwu</a>,
+							<a href="#" style="color: #2F855A;">Yanan Wang</a>,
+							<a href="#" style="color: #2F855A;">Peng Chen</a>,
+							<a href="#" style="color: #2F855A;">Zhenghao Fei</a>
+						</div>
+						
+						<br>
+						
+						<div class="column has-text-centered">
+							<div class="publication-links">
+								<!-- Dataset -->
+								<span class="link-block">
+									<a target="_blank" href="https://zenodo.org/records/15515834" class="external-link button is-normal is-rounded is-dark" style="padding-left: 10px; padding-right: 10px;">
+										<span class="icon">
+											<i class="fas fa-database"></i>
+										</span>
+										<span>Download Dataset</span>
+									</a>
+								</span>
+						
+								<!-- Paper -->
+								<span class="link-block">
+									<a target="_blank" href="https://arxiv.org/html/2501.16717v1" class="external-link button is-normal is-rounded is-dark">
+										<span class="icon">
+											<i class="fas fa-file-pdf"></i>
+										</span>
+										<span>Related Paper</span>
+									</a>
+								</span>
+							</div>
+						</div>
+						
+						<style>
+							/* 调整按钮的文字颜色 */
+							.button.is-dark {
+								color: white !important;
+								background-color: #333 !important;
+								border-color: #333 !important;
+							}
+						
+							/* 调整按钮在悬停时的颜色 */
+							.button.is-dark:hover {
+								color: white !important;
+								background-color: #555 !important;
+								border-color: #555 !important;
+							}
+						
+							/* 如果图标颜色显示不合适，可以调整 */
+							.button .icon {
+								color: white !important;
+							}
+						
+							/* 让按钮排成两行 */
+							.publication-links {
+								text-align: center;
+								display: flex;
+								flex-wrap: wrap; /* 让按钮自动换行 */
+								justify-content: center;
+								gap: 10px; /* 控制按钮之间的间距 */
+							}
+						
+							.link-block {
+								display: inline-block;
+								margin: 5px;
+							}
+						
+							/* 使 ArXiv 按钮变窄 */
+							.button.is-dark span.icon + span {
+								margin-left: 5px; /* 控制文字和图标之间的间距 */
+							}
+						
+							.button.is-dark[style*="ArXiv"] {
+								padding-left: 10px;
+								padding-right: 10px;
+							}
+						</style>						
+						
+						<br>
+						
+						<hr style="margin-top: 0em;">
+						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Overview</h3>
+						<p class="paper-paragraph" align="justify">
+							The SROI dataset contains demonstrations of expert strawberry picking operations, collected using a teleoperated robotic system. Each demonstration includes synchronized data from multiple sensors, capturing the complete picking process from approach to successful harvest.
+						</p>
+						<p class="paper-paragraph" align="justify">
+							Key benefits of the SROI dataset:
+							<ul style="margin-left: 2em; margin-top: 1em;">
+								<li><strong>Multi-sensor Fusion:</strong> Combines stereo RGB images from OAK camera and Intel RealSense D435, along with IMU data for robust perception and motion analysis.</li>
+								<li><strong>High-Quality Demonstrations:</strong> Expert demonstrations ensure high-quality training data for imitation learning and policy development.</li>
+								<li><strong>Comprehensive Coverage:</strong> Includes various picking scenarios, lighting conditions, and strawberry cluster configurations for diverse training scenarios.</li>
+								<li><strong>Rich Annotations:</strong> Includes action status information and camera calibration data for precise analysis and system development.</li>
+							</ul>
+						</p>
+						<br>
+
+						<hr style="margin-top: 0em;">
+						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Demo</h3>
+						<p class="paper-paragraph" align="justify">
+							The demo video below shows synchronized data from multiple sensors during a strawberry picking operation:
+							<ul style="margin-left: 2em; margin-top: 1em;">
+								<li><strong>Left Panel:</strong> IMU data visualization showing motion patterns during picking</li>
+								<li><strong>Right Panel:</strong> Synchronized left and right RGB camera feeds from OAK camera</li>
+							</ul>
+						</p>
+						<div style="text-align: center; margin: 2em 0;">
+							<video width="100%" controls autoplay loop muted style="max-width: 1200px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+								<source src="images/SROI_datasets_demo_01.mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+						</div>
+						<br>
+
+						<hr style="margin-top: 0em;">
+						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Structure</h3>
+						<p class="paper-paragraph" align="justify">
+							The dataset is organized as ROS bags containing the following topics:
+							<ul style="margin-left: 2em; margin-top: 1em;">
+								<li><strong>OAK Camera Topics:</strong>
+									<ul style="margin-left: 1em;">
+										<li><code>/oak/left/image_raw/compressed</code> - Left camera RGB images</li>
+										<li><code>/oak/right/image_raw/compressed</code> - Right camera RGB images</li>
+										<li><code>/oak/imu/data</code> - IMU sensor data</li>
+									</ul>
+								</li>
+								<li><strong>Intel RealSense D435 Topics:</strong>
+									<ul style="margin-left: 1em;">
+										<li><code>/camera/color/image_raw/compressed</code> - RGB camera images</li>
+										<li><code>/camera/infra1/image_rect_raw/compressed</code> - Left IR camera images</li>
+										<li><code>/camera/infra2/image_rect_raw/compressed</code> - Right IR camera images</li>
+										<li><code>/camera/imu</code> - IMU sensor data</li>
+										<li><code>/camera/accel/imu_info</code> - Accelerometer information</li>
+										<li><code>/camera/gyro/imu_info</code> - Gyroscope information</li>
+										<li><code>/camera/color/camera_info</code> - RGB camera calibration info</li>
+										<li><code>/camera/infra1/camera_info</code> - Left IR camera calibration info</li>
+										<li><code>/camera/infra2/camera_info</code> - Right IR camera calibration info</li>
+									</ul>
+								</li>
+								<li><strong>System Topics:</strong>
+									<ul style="margin-left: 1em;">
+										<li><code>/upi/status/is_action</code> - Action status information</li>
+										<li><code>/clock</code> - ROS time synchronization</li>
+									</ul>
+								</li>
+							</ul>
+						</p>
+						<br>
+
+						<hr style="margin-top: 0em;">
+						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Visualizing the Dataset on the Web</h3>
+						<p class="paper-paragraph" align="justify">
+							You can directly visualize the ROS bag data in your web browser using Foxglove Studio, a powerful web-based visualization tool that allows for interactive exploration of your data without needing to install desktop software.
+						</p>
+
+						<h4 style="margin-bottom: 0.3em; color: #1E3A8A; font-size: 115%; margin-top: 1em;">Using Foxglove Studio</h4>
+						<p class="paper-paragraph" align="justify">
+							Here's how to get started:
+							<ol style="margin-left: 2em; margin-top: 1em;">
+								<li>Visit <a href="https://studio.foxglove.dev/" target="_blank">Foxglove Studio</a> in your browser.</li>
+								<li>Click "Open local file" and select your ROS bag file.</li>
+								<li>Configure your layout by adding panels for:
+									<ul style="margin-left: 1em;">
+										<li>Image panels for:
+											<ul style="margin-left: 1em;">
+												<li>OAK camera: <code>/oak/left/image_raw/compressed</code> and <code>/oak/right/image_raw/compressed</code></li>
+												<li>D435 camera: <code>/camera/color/image_raw/compressed</code>, <code>/camera/infra1/image_rect_raw/compressed</code>, and <code>/camera/infra2/image_rect_raw/compressed</code></li>
+											</ul>
+										</li>
+										<li>Plot panels for:
+											<ul style="margin-left: 1em;">
+												<li>OAK IMU: <code>/oak/imu/data</code></li>
+												<li>D435 IMU: <code>/camera/imu</code></li>
+											</ul>
+										</li>
+										<li>Raw Messages panel for <code>/upi/status/is_action</code></li>
+									</ul>
+								</li>
+								<li>Use the playback controls to navigate through the data.</li>
+							</ol>
+						</p>
+						<br>
+
+						<hr style="margin-top: 0em;">
+						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Usage</h3>
+						<p class="paper-paragraph" align="justify">
+							To help you get started with the SROI dataset, we provide a set of utilities for processing and analyzing the ROS bag files. These utilities include:
+							<ul style="margin-left: 2em; margin-top: 1em;">
+								<li>ROS bag processing scripts</li>
+								<li>Data extraction and conversion tools</li>
+								<li>Example visualization code</li>
+								<li>Utility functions for common tasks</li>
+							</ul>
+						</p>
+						<p class="paper-paragraph" align="justify">
+							Visit our <a href="https://github.com/AgRoboticsResearch/sroi_rosbag_utilities" target="_blank">SROI_rosbags_utilities</a> repository to access these tools and get started with your analysis.
+						</p>
+						<br>
+
+						<hr style="margin-top: 0em;">
+						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Statistics</h3>
+						<p class="paper-paragraph" align="justify">
+							The dataset is broadly categorized into two main sources, presumably from different camera setups (e.g., OAK and RealSense D435). Here's a brief statistical overview:
+						</p>
+
+						<h4 style="margin-bottom: 0.3em; color: #1E3A8A; font-size: 115%; margin-top: 1em;">Summary 1 (e.g., OAK Camera Data)</h4>
+						<ul style="margin-left: 2em; margin-top: 1em;">
+							<li><strong>Total Files Processed:</strong> 17</li>
+							<li><strong>Total Segments Found:</strong> 73</li>
+							<li><strong>Average Segment Duration:</strong> 7.34 seconds</li>
+						</ul>
+
+						<h4 style="margin-bottom: 0.3em; color: #1E3A8A; font-size: 115%; margin-top: 1em;">Summary 2 (e.g., RealSense D435 Data)</h4>
+						<ul style="margin-left: 2em; margin-top: 1em;">
+							<li><strong>Total Files Processed:</strong> 14</li>
+							<li><strong>Total Segments Found:</strong> 241</li>
+							<li><strong>Average Segment Duration:</strong> 2.42 seconds</li>
+						</ul>
+						<br>
+
+						<hr style="margin-top: 0em;">
+						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Contact</h3>
+						<p><a href="https://github.com/ZhenghaoFei/">Fei Zhenghao</a>, <span style="color:rgb(62, 61, 61)">zfei@zju.edu.cn</span></p>
+					</section>
+			</div>
+
+
+			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="0" width="0" style="position: absolute;">
+				<defs>
+					<!-- Go-up -->
+					<g id="go-up">
+						<path d="M10,9V5L3,12L10,19V14.9C15,14.9 18.5,16.5 21,20C20,15 17,10 10,9Z" fill="#696969"/>
+					</g>
+					<!-- Folder -->
+					<g id="folder" fill-rule="nonzero" fill="none">
+						<path d="M285.22 37.55h-142.6L110.9 0H31.7C14.25 0 0 16.9 0 37.55v75.1h316.92V75.1c0-20.65-14.26-37.55-31.7-37.55z" fill="#FFA000"/>
+						<path d="M285.22 36H31.7C14.25 36 0 50.28 0 67.74v158.7c0 17.47 14.26 31.75 31.7 31.75H285.2c17.44 0 31.7-14.3 31.7-31.75V67.75c0-17.47-14.26-31.75-31.7-31.75z" fill="#FFCA28"/>
+					</g>
+					<g id="folder-shortcut" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<g id="folder-shortcut-group" fill-rule="nonzero">
+							<g id="folder-shortcut-shape">
+								<path d="M285.224876,37.5486902 L142.612438,37.5486902 L110.920785,0 L31.6916529,0 C14.2612438,0 0,16.8969106 0,37.5486902 L0,112.646071 L316.916529,112.646071 L316.916529,75.0973805 C316.916529,54.4456008 302.655285,37.5486902 285.224876,37.5486902 Z" id="Shape" fill="#FFA000"></path>
+								<path d="M285.224876,36 L31.6916529,36 C14.2612438,36 0,50.2838568 0,67.7419039 L0,226.451424 C0,243.909471 14.2612438,258.193328 31.6916529,258.193328 L285.224876,258.193328 C302.655285,258.193328 316.916529,243.909471 316.916529,226.451424 L316.916529,67.7419039 C316.916529,50.2838568 302.655285,36 285.224876,36 Z" id="Shape" fill="#FFCA28"></path>
+							</g>
+						</g>
+					</g>
+					<!-- File -->
+					<g id="file" stroke="#000" stroke-width="25" fill="#FFF" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M13 24.12v274.76c0 6.16 5.87 11.12 13.17 11.12H239c7.3 0 13.17-4.96 13.17-11.12V136.15S132.6 13 128.37 13H26.17C18.87 13 13 17.96 13 24.12z"/>
+						<path d="M129.37 13L129 113.9c0 10.58 7.26 19.1 16.27 19.1H249L129.37 13z"/>
+					</g>
+					<g id="file-shortcut" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<g id="file-shortcut-group" transform="translate(13.000000, 13.000000)">
+							<g id="file-shortcut-shape" stroke="#000000" stroke-width="25" fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M0,11.1214886 L0,285.878477 C0,292.039924 5.87498876,296.999983 13.1728373,296.999983 L225.997983,296.999983 C233.295974,296.999983 239.17082,292.039942 239.17082,285.878477 L239.17082,123.145388 C239.17082,123.145388 119.58541,2.84217094e-14 115.369423,2.84217094e-14 L13.1728576,2.84217094e-14 C5.87500907,-1.71479982e-05 0,4.96022995 0,11.1214886 Z" id="rect1171"></path>
+								<path d="M116.37005,0 L116,100.904964 C116,111.483663 123.258008,120 132.273377,120 L236,120 L116.37005,0 L116.37005,0 Z" id="rect1794"></path>
+							</g>
+							<path d="M47.803141,294.093878 C48.4999811,295.177551 48.9495553,296.095918 49.4216083,296.995918 C50.1184484,297.895918 50.5680227,298.630612 51.2873415,299.365306 C52.2089688,300.44898 53.3778619,301 54.7490634,301 C56.1427436,301 57.0643709,300.632653 57.761211,299.916327 C58.4580511,299.365306 58.9076254,298.465306 58.9076254,297.381633 C58.9076254,296.830612 58.9076254,295.930612 58.6828382,294.828571 C58.4355724,293.561224 58.2107852,292.844898 58.2107852,292.477551 C57.7387323,287.757143 57.5139451,283.753061 57.5139451,279.95102 C57.5139451,273.228571 58.4355724,267.057143 59.8292526,261.602041 C61.44772,256.165306 63.5382403,251.610204 66.0783349,247.62449 C68.8656954,243.620408 72.3274172,240.35102 76.4859792,237.44898 C80.6445412,234.546939 85.2751561,232.177551 90.1305582,230.359184 C94.9859603,228.540816 100.76299,227.089796 107.236859,226.006122 C113.710728,225.087755 120.409385,224.371429 127.13052,223.820408 C133.829177,223.453061 141.247152,223.269388 149.811542,223.269388 L167.704598,223.269388 L167.704598,249.057143 C167.704598,250.87551 168.401438,252.326531 170.019905,253.593878 C171.86316,254.861224 173.728893,255.595918 176.021722,255.595918 C178.112242,255.595918 180.180284,254.861224 181.82123,253.593878 L247.751296,201.834694 C249.369763,200.567347 250.291391,199.116327 250.291391,197.297959 C250.291391,195.479592 249.369763,194.028571 247.751296,192.761224 L181.82123,141.002041 C180.202763,139.734694 178.112242,139 176.044201,139 C173.728893,139 171.885639,139.734694 170.042384,141.002041 C168.423917,142.269388 167.727077,143.720408 167.727077,145.538776 L167.727077,171.326531 L149.811542,171.326531 C88.5120908,171.326531 50.8152886,184.955102 36.9234437,212.193878 C32.3153075,221.267347 30,232.526531 30,245.971429 C30,257.046939 35.5522422,272.291837 46.4094607,291.540816 C46.6567266,292.091837 47.1063009,292.826531 47.803141,294.093878 Z" id="Shape-Copy" fill="#000000" fill-rule="nonzero" transform="translate(140.145695, 220.000000) scale(-1, 1) translate(-140.145695, -220.000000) "></path>
+						</g>
+					</g>
+				</defs>
+			</svg>
+
+		<!-- Footer -->
+			<!-- <footer id="footer">
+				<div class="inner">
+					<ul class="copyright">
+						<li>Meet <a href="https://en.wikipedia.org/wiki/Danbo_(character)">Danbo</a> the cardboard robot.</li>
+					</ul>
+				</div>
+			</footer> -->
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
