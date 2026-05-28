@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="EXACT-MPPI: exact signed-distance navigation for arbitrary-footprint robots from point clouds via path integral control.">
+  <meta property="og:title"
+    content="EXACT-MPPI: Exact Signed-Distance Navigation for Arbitrary-Footprint Robots" />
+  <meta property="og:description"
+    content="A training-free local navigation framework that embeds exact footprint signed-distance evaluation into MPPI control." />
+  <meta property="og:url" content="https://agroboticsresearch.github.io/exact-mppi/" />
+  <meta property="og:image" content="static/images/figure1_system_architecture.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:title"
+    content="EXACT-MPPI: Exact Signed-Distance Navigation for Arbitrary-Footprint Robots">
+  <meta name="twitter:description"
+    content="Exact polygonal footprint reasoning and GPU-parallel MPPI for point-cloud local navigation.">
+  <meta name="twitter:image" content="static/images/figure1_system_architecture.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords"
+    content="EXACT-MPPI, robot navigation, model predictive path integral control, signed-distance collision avoidance, arbitrary footprint">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>EXACT-MPPI: Exact Signed-Distance Navigation for Arbitrary-Footprint Robots</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">EXACT-MPPI: Exact Signed-Distance Navigation for
+              Arbitrary-Footprint Robots from Point Clouds via Path Integral Control</h1>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><span class="author-name">Chen Peng</span><sup>1,2</sup>,</span>
+              <span class="author-block"><span class="author-name">Zhikang Ge</span><sup>1</sup>,</span>
+              <span class="author-block"><span class="author-name">Wenwu Lu</span><sup>1</sup>,</span>
+              <span class="author-block"><span class="author-name">Haiming Gao</span><sup>1</sup>,</span>
+              <span class="author-block"><span class="author-name">Stavros Vougioukas</span><sup>3</sup>,</span>
+              <span class="author-block"><span class="author-name">Peng Wei</span><sup>3</sup></span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>ZJU-Hangzhou Global Scientific and Technological Innovation Center, Zhejiang University</span><br>
+              <span class="author-block"><sup>2</sup>College of Biosystems Engineering and Food Science, Zhejiang University</span><br>
+              <span class="author-block"><sup>3</sup>Department of Biological and Agricultural Engineering, University of California, Davis</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <!-- TODO: Replace href with the arXiv abstract URL after approval. -->
+                  <a href="#" class="external-link button is-normal is-rounded is-dark" aria-label="arXiv link placeholder">
+                    <span class="icon">
+                      <i class="fas fa-archive"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="#" class="button is-normal is-rounded is-disabled" aria-disabled="true">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code (Coming Soon)</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="columns is-centered has-text-centered">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img class="paper-figure" src="static/images/figure1_system_architecture.png"
+            alt="Overview of the EXACT-MPPI framework">
+          <h2 class="subtitle figure-caption">
+            EXACT-MPPI maps local point-cloud observations and weak waypoint guidance directly to motion commands,
+            combining exact signed-distance evaluation for arbitrary 2D footprints with GPU-parallel MPPI control.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Ground robots often carry payloads, implements, or other attachments that turn their effective footprint
+              into complex, non-convex shapes. Navigating safely through clutter then requires reasoning about this true
+              geometry, yet most local planners simplify it with convex or inflated proxies and rasterize sensor data
+              into occupancy grids or distance fields. Both choices eliminate feasible motions when clearance is
+              comparable to the footprint geometry. We present EXACT-MPPI, a training-free local navigation framework
+              that maps local point-cloud observations and sparse guidance directly to motion commands, without any
+              intermediate map representation. The framework embeds an analytic, exact signed-distance evaluator into a
+              Model Predictive Path Integral (MPPI) controller. The footprint is represented as a simple polygon for
+              general convex or concave planar shapes, with a rectangle-cover specialization for faster evaluation of
+              rectilinear footprints, enabling footprint-aware collision costs without convex decomposition, inflation,
+              or learned encoders. During each MPPI rollout, observed obstacle points are transformed into the predicted
+              body frame and evaluated against the footprint. All operations are batched in JAX, leveraging GPU
+              parallelism for real-time receding-horizon control. Experiments show that EXACT-MPPI accelerates batched
+              distance evaluation over a learned point-to-robot baseline, preserves feasible motion where
+              convex-footprint planners fail, and remains robust under dense static and moving obstacles. The same
+              framework deploys on differential-drive, Ackermann, omnidirectional, and hybrid-mode platforms by changing
+              only the footprint description and motion model without per-platform training. Pairing exact footprint
+              geometry with sampling-based predictive control thus offers a practical, training-free path to
+              footprint-aware local navigation across diverse robots.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hero">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Method Overview</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <img class="paper-figure" src="static/images/figure2_pipeline.png" alt="EXACT-MPPI system pipeline">
+          <h2 class="subtitle figure-caption">
+            System architecture of EXACT-MPPI. Local obstacle points and sparse guidance are evaluated inside a
+            footprint-aware MPPI rollout loop, avoiding occupancy grids, signed-distance fields, and learned encoders.
+          </h2>
+        </div>
+      </div>
+      <div class="content feature-list mt-5">
+        <ul>
+          <li><strong>Direct point-cloud navigation:</strong> observed obstacle points are consumed in the robot-centric
+            control loop without rasterizing them into a map.</li>
+          <li><strong>Exact footprint geometry:</strong> simple polygons handle convex and concave footprints, while
+            rectangle covers accelerate rectilinear robot shapes.</li>
+          <li><strong>GPU-parallel receding horizon control:</strong> JAX batches rollout samples, horizon steps,
+            obstacle points, and footprint edges for real-time MPPI updates.</li>
+          <li><strong>Cross-platform deployment:</strong> the same collision-evaluation and MPPI structure transfers
+            across differential-drive, Ackermann, omnidirectional, and hybrid-mode robots.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Exact Signed-Distance Evaluation</h2>
+      <div class="columns is-centered has-text-centered is-variable is-5">
+        <div class="column">
+          <img class="paper-figure compact" src="static/images/t_shape_distance_methods.png"
+            alt="Rectangle-cover and polygon-edge distance evaluation">
+          <h2 class="subtitle figure-caption">
+            Distance evaluation for an orthogonal footprint: rectangle cover versus polygon edges.
+          </h2>
+        </div>
+        <div class="column">
+          <img class="paper-figure compact" src="static/images/polygon_sdf_gallery.png"
+            alt="Signed-distance fields for representative simple polygons">
+          <h2 class="subtitle figure-caption">
+            Representative signed-distance fields for rectilinear, convex, and non-convex footprints.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-small">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">Simulation Results</h2>
+      <div class="container is-max-desktop results-container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item">
+            <img src="static/images/selected_cases_2x2_gpu_curves.png"
+              alt="Runtime comparison of signed-distance evaluators">
+            <h2 class="subtitle has-text-centered figure-caption">
+              Inference time versus obstacle point count for DUNE and the JAX-based evaluator across representative
+              footprints.
+            </h2>
+          </div>
+          <div class="item">
+            <img src="static/images/corridor-don-sweep.png" alt="Corridor degree-of-narrowness sweep">
+            <h2 class="subtitle has-text-centered figure-caption">
+              Corridor narrowness sweep showing cases where explicit T-shaped footprint reasoning preserves feasible
+              passage through tight geometry.
+            </h2>
+          </div>
+          <div class="item">
+            <img src="static/images/expr2-dynamic.png" alt="Dynamic obstacle benchmark comparison">
+            <h2 class="subtitle has-text-centered figure-caption">
+              IR-SIM comparison in a corridor with mixed static and dynamic obstacles: EXACT-MPPI, Convex-MPPI,
+              Rectangle-MPPI, and NeuPAN.
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="container is-max-widescreen gif-showcase mt-5">
+        <div class="columns is-centered is-multiline has-text-centered">
+          <div class="column is-half">
+            <img class="demo-gif" src="static/videos/corridor_cluttered.gif"
+              alt="Cluttered corridor navigation demonstration">
+            <p class="mt-2">Cluttered corridor with a T-shaped footprint.</p>
+          </div>
+          <div class="column is-half">
+            <img class="demo-gif" src="static/videos/corridor_dynamic_anyshape_f.gif"
+              alt="Dynamic obstacle navigation demonstration">
+            <p class="mt-2">F-shaped footprint with moving obstacles.</p>
+          </div>
+          <div class="column is-half">
+            <img class="demo-gif" src="static/videos/narrow_gaps.gif" alt="Narrow-gap navigation demonstration">
+            <p class="mt-2">Narrow-gap navigation near clearance limits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Cross-Platform Hardware Deployment</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <img class="paper-figure compact" src="static/images/experiment-platform.png"
+            alt="Hardware platforms used in the experiments">
+          <h2 class="subtitle figure-caption">
+            The hardware experiments include an AgileX Ranger mini, a differential-drive dual-arm robot, and a Unitree
+            Go2 quadrupedal robot carrying an elongated object.
+          </h2>
+        </div>
+      </div>
+
+      <div class="columns is-centered has-text-centered is-variable is-5 mt-4">
+        <div class="column">
+          <img class="paper-figure" src="static/images/exp3_diff.png"
+            alt="Differential-drive dual-arm robot deployment">
+          <p class="mt-2">Differential-drive transportation in indoor narrow spaces.</p>
+        </div>
+        <div class="column">
+          <img class="paper-figure" src="static/images/exp3_mppi_exact_vs_convex.png"
+            alt="Ranger mini parallel-motion trap scenario">
+          <p class="mt-2">Ranger mini trap scenario under parallel motion.</p>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered is-variable is-5">
+        <div class="column">
+          <img class="paper-figure" src="static/images/exp3_acker_mppi_convex_vs_neupan_convex.png"
+            alt="Ranger mini dual-Ackermann trap scenario">
+          <p class="mt-2">Ranger mini trap scenario under dual-Ackermann steering.</p>
+        </div>
+        <div class="column">
+          <img class="paper-figure narrow" src="static/images/narrow_case_mppi_falco.png"
+            alt="Unitree Go2 narrow-passage comparison">
+          <p class="mt-2">Unitree Go2 narrow-passage comparison with a carried bar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hero">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Hybrid-Mode Navigation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <img class="paper-figure" src="static/images/hybrid_mode_full_map.png"
+            alt="Hybrid-mode navigation on AgileX Ranger mini">
+          <h2 class="subtitle figure-caption">
+            Hybrid-mode navigation on AgileX Ranger mini, with local planning details showing point-cloud input,
+            reference trajectory, sampled candidate paths, and the selected MPPI trajectory.
+          </h2>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <img class="paper-figure" src="static/images/trajplot_with_vcmd_over_t.jpeg"
+            alt="Trajectory and commanded velocities for hybrid and dual-Ackermann operation">
+          <h2 class="subtitle figure-caption">
+            Trajectory and commanded velocities for hybrid-mode operation and dual-Ackermann-only operation.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hero is-light" id="video-presentation">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Video Presentation</h2>
+      <div class="video-grid">
+        <div class="video-panel">
+          <div class="publication-video">
+            <video controls preload="metadata">
+              <source src="static/videos/deployment-differential-drive.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="has-text-centered mt-3">Deployment on a differential-drive robot.</p>
+        </div>
+        <div class="video-panel">
+          <div class="publication-video">
+            <video controls preload="metadata">
+              <source src="static/videos/deployment-swerve-drive.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="has-text-centered mt-3">Deployment on a swerve-control robot.</p>
+        </div>
+        <div class="video-panel">
+          <div class="publication-video">
+            <video controls preload="metadata">
+              <source src="static/videos/deployment-quadrupedal.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="has-text-centered mt-3">Deployment on a quadrupedal robot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section is-light" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{exact_mppi_under_review,
+  title  = {EXACT-MPPI: Exact Signed-Distance Navigation for Arbitrary-Footprint Robots from Point Clouds via Path Integral Control},
+  author = {Peng, Chen and Ge, Zhikang and Lu, Wenwu and Gao, Haiming and Vougioukas, Stavros and Wei, Peng},
+  year   = {TODO},
+  note   = {Manuscript under review. Project page: https://agroboticsresearch.github.io/exact-mppi/}
+}</code></pre>
+      <!-- TODO: Replace this BibTeX entry with the official arXiv or publication entry after release. -->
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This page follows the Academic Project Page Template style adopted from the Nerfies project page. It is a
+              static project page for the EXACT-MPPI manuscript and uses only relative local assets for deployment under
+              <code>/exact-mppi/</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
