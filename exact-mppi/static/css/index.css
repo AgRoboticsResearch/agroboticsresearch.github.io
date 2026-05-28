@@ -1,0 +1,159 @@
+body {
+  font-family: "Noto Sans", Arial, sans-serif;
+}
+
+.footer .icon-link {
+  font-size: 25px;
+  color: #000;
+}
+
+.link-block a,
+.link-block span.button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.publication-title,
+.publication-authors,
+.teaser {
+  font-family: "Google Sans", "Noto Sans", Arial, sans-serif;
+}
+
+.publication-authors a,
+.publication-authors .author-name {
+  color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+  text-decoration: underline;
+}
+
+.publication-authors sup {
+  color: #222;
+  font-size: 0.72em;
+  margin-left: 1px;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.button.is-disabled,
+.button[aria-disabled="true"] {
+  background-color: #d6d6d6;
+  border-color: #d6d6d6;
+  color: #666;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.paper-figure,
+.carousel .item img,
+.demo-gif,
+.publication-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.paper-figure.compact {
+  max-width: 720px;
+}
+
+.paper-figure.narrow {
+  max-width: 560px;
+}
+
+.figure-caption,
+.subtitle.figure-caption {
+  max-width: 900px;
+  margin: 1rem auto 0;
+  line-height: 1.45;
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-container {
+  max-width: 860px !important;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  padding: 12px 18px 18px;
+  font-size: 0;
+}
+
+.results-carousel .item img {
+  max-width: 820px;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.results-carousel .subtitle {
+  font-size: 1rem;
+}
+
+.slider-pagination .slider-page {
+  background: #000;
+}
+
+.feature-list {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.feature-list li {
+  margin-bottom: 0.55rem;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.video-panel {
+  min-width: 0;
+}
+
+.gif-showcase {
+  max-width: 1240px !important;
+}
+
+.gif-showcase .column {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.publication-video video {
+  background: #111;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+@media screen and (max-width: 768px) {
+  .publication-title {
+    font-size: 2rem !important;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .results-carousel .item {
+    padding: 10px;
+  }
+}
