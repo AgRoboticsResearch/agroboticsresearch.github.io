@@ -144,6 +144,13 @@ pre {
   white-space: pre-wrap;
 }
 
+@media screen and (min-width: 769px) {
+  .contact-line {
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .publication-title {
     font-size: 2rem !important;
