@@ -1,6 +1,6 @@
-# 🍓 AgRoboticsResearch
+# AgRoboticsResearch
 
-Open robotics research for strawberry harvesting & precision agriculture — devices, datasets, planning and navigation.
+Open-source robotics research across agricultural harvesting, motion planning, robot navigation, and large-scale datasets.
 
 This repository hosts the project pages at **<https://agroboticsresearch.github.io/>** (published from the [`release`](https://github.com/AgRoboticsResearch/agroboticsresearch.github.io/tree/release) branch). The landing page is [`index.html`](index.html); this README mirrors the same project list.
 
