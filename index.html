@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AgRoboticsResearch — Projects</title>
+	<meta name="description" content="Open robotics research from AgRoboticsResearch — strawberry harvesting, agricultural trajectory planning, navigation, and large-scale fruit datasets.">
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%8D%93</text></svg>">
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-1NLS9R0S0P"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-1NLS9R0S0P');
+	</script>
+
+	<style>
+		:root{
+			--strawberry:#e63946;
+			--leaf:#2f855a;
+			--ink:#16202a;
+			--muted:#5b6470;
+			--line:#e7eaef;
+			--bg:#f6f7f9;
+			--card:#ffffff;
+		}
+		*{box-sizing:border-box;}
+		html,body{margin:0;padding:0;}
+		body{
+			background:var(--bg);
+			color:var(--ink);
+			font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+			line-height:1.55;
+			-webkit-font-smoothing:antialiased;
+		}
+		.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+		header.site{
+			padding:72px 0 40px;
+			text-align:center;
+		}
+		header.site .mark{font-size:2.6rem;line-height:1;}
+		header.site h1{
+			font-size:clamp(2.1rem,5vw,3.1rem);
+			margin:.25em 0 .15em;
+			letter-spacing:-.02em;
+			background:linear-gradient(90deg,var(--strawberry),var(--leaf));
+			-webkit-background-clip:text;background-clip:text;color:transparent;
+		}
+		header.site p.tagline{
+			color:var(--muted);
+			font-size:clamp(1rem,2.2vw,1.2rem);
+			max-width:640px;margin:0 auto;
+		}
+		header.site p.orglink{margin-top:1.1em;font-size:.95rem;}
+		header.site p.orglink a{color:var(--leaf);font-weight:600;text-decoration:none;}
+		header.site p.orglink a:hover{text-decoration:underline;}
+
+		section.projects{padding:28px 0 72px;}
+		.grid{
+			display:grid;
+			grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+			gap:24px;
+		}
+
+		a.card{
+			display:flex;flex-direction:column;
+			background:var(--card);
+			border:1px solid var(--line);
+			border-radius:16px;
+			overflow:hidden;
+			text-decoration:none;color:inherit;
+			box-shadow:0 1px 2px rgba(20,30,40,.04);
+			transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+		}
+		a.card:hover{
+			transform:translateY(-4px);
+			box-shadow:0 14px 30px rgba(20,30,40,.12);
+			border-color:#d6dbe2;
+		}
+		.card .thumb{
+			position:relative;
+			aspect-ratio:16/10;
+			background:#eef0f3;
+			overflow:hidden;
+		}
+		.card .thumb img{
+			width:100%;height:100%;object-fit:cover;display:block;
+			transition:transform .35s ease;
+		}
+		a.card:hover .thumb img{transform:scale(1.04);}
+		.card .year{
+			position:absolute;top:10px;left:10px;
+			background:rgba(22,32,42,.72);color:#fff;
+			font-size:.72rem;font-weight:600;letter-spacing:.02em;
+			padding:3px 9px;border-radius:999px;backdrop-filter:blur(3px);
+		}
+		.card .body{padding:16px 18px 20px;}
+		.card .body h3{
+			margin:0 0 .35em;font-size:1.16rem;font-weight:700;letter-spacing:-.01em;
+		}
+		.card .body p{
+			margin:0;color:var(--muted);font-size:.95rem;
+			display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+		}
+
+		footer.site{
+			border-top:1px solid var(--line);
+			padding:26px 0 48px;text-align:center;color:var(--muted);font-size:.9rem;
+		}
+		footer.site a{color:var(--leaf);text-decoration:none;font-weight:600;}
+		footer.site a:hover{text-decoration:underline;}
+	</style>
+</head>
+<body>
+
+	<header class="site">
+		<div class="wrap">
+			<div class="mark">🍓</div>
+			<h1>AgRoboticsResearch</h1>
+			<p class="tagline">Open robotics research for strawberry harvesting &amp; precision agriculture — devices, datasets, planning and navigation.</p>
+			<p class="orglink"><a href="https://github.com/AgRoboticsResearch" target="_blank" rel="noopener">github.com/AgRoboticsResearch ↗</a></p>
+		</div>
+	</header>
+
+	<section class="projects">
+		<div class="wrap">
+			<div id="grid" class="grid"></div>
+		</div>
+	</section>
+
+	<footer class="site">
+		<div class="wrap">
+			AgRoboticsResearch · these pages are published from the
+			<a href="https://github.com/AgRoboticsResearch/agroboticsresearch.github.io/tree/release" target="_blank" rel="noopener"><code>release</code> branch</a>.
+		</div>
+	</footer>
+
+	<!--
+		To add a project, append one entry to PROJECTS below — it auto-sorts by `created`.
+		Each card shows at most one image. Leave `image` empty ("") for a text-only card.
+	-->
+	<script>
+		const PROJECTS = [
+			{
+				name: "SROI",
+				url: "sroi/",
+				created: "2025-06-04",
+				abstract: "A portable handheld device with a stereo camera and cut-and-hold gripper for collecting human strawberry-harvesting demonstrations.",
+				image: "sroi/images/handhold_device_and_e_gripper.png"
+			},
+			{
+				name: "SROI Datasets",
+				url: "sroi_datasets/",
+				created: "2025-06-04",
+				abstract: "Imitation-learning datasets of strawberry picking — multi-sensor ROS-bag demonstrations and V2 LeRobot trajectories.",
+				image: "sroi_datasets/images/v2/sample_color_frame.png"
+			},
+			{
+				name: "East Planner",
+				url: "east_planner/",
+				created: "2025-07-04",
+				abstract: "Efficient and safe trajectory planning for autonomous agricultural-vehicle headland turning in cluttered environments.",
+				image: "east_planner/static/images/exp1.png"
+			},
+			{
+				name: "Dual-Arm MILP",
+				url: "dual_arm_milp/",
+				created: "2025-07-06",
+				abstract: "Optimal scheduling of a dual-arm robot for efficient strawberry harvesting in plant factories.",
+				image: "dual_arm_milp/static/images/front-cover-page-with-arrow.jpg"
+			},
+			{
+				name: "MegaFruits",
+				url: "megafruits/",
+				created: "2025-07-11",
+				abstract: "A large-scale annotated fruit-segmentation dataset — 50,000+ images with around 1.1 million instances.",
+				image: "megafruits/dataset.png"
+			},
+			{
+				name: "EXACT-MPPI",
+				url: "exact-mppi/",
+				created: "2026-05-28",
+				abstract: "Exact signed-distance navigation for arbitrary-footprint robots.",
+				image: "exact-mppi/static/images/figure1_system_architecture.png"
+			},
+			{
+				name: "SROI V2",
+				url: "sroi_v2/",
+				created: "2026-08-09",
+				abstract: "A redesigned UMI-style handheld data-acquisition device and strawberry-harvesting end effector — collection, learning, autonomous harvesting.",
+				image: "sroi_v2/images/cover.jpg"
+			}
+		];
+
+		const grid = document.getElementById("grid");
+		PROJECTS
+			.slice()
+			.sort((a, b) => (a.created < b.created ? -1 : a.created > b.created ? 1 : 0))
+			.forEach(p => {
+				const card = document.createElement("a");
+				card.className = "card";
+				card.href = p.url;
+				const year = (p.created || "").slice(0, 4);
+				card.innerHTML =
+					'<div class="thumb">' +
+						(p.image ? '<img loading="lazy" src="' + p.image + '" alt="' + p.name + '">' : '') +
+						(year ? '<span class="year">' + year + "</span>" : "") +
+					"</div>" +
+					'<div class="body">' +
+						"<h3>" + p.name + "</h3>" +
+						"<p>" + p.abstract + "</p>" +
+					"</div>";
+				grid.appendChild(card);
+			});
+	</script>
+
+</body>
+</html>
