@@ -144,6 +144,13 @@
 	<script>
 		const PROJECTS = [
 			{
+				name: "SDM-D",
+				url: "https://github.com/AgRoboticsResearch/SDM-D",
+				created: "2024-11-22",
+				abstract: "Segmentation-Description-Matching-Distilling — distill small fruit-perception models from foundation models without manual labels; strong zero-shot detection & segmentation.",
+				image: "assets/gallery/sdm-d.jpg"
+			},
+			{
 				name: "SROI",
 				url: "sroi/",
 				created: "2025-06-04",
@@ -209,6 +216,7 @@
 				const card = document.createElement("a");
 				card.className = "card";
 				card.href = p.url;
+				if (/^https?:/.test(p.url)) { card.target = "_blank"; card.rel = "noopener noreferrer"; }
 				const year = (p.created || "").slice(0, 4);
 				card.innerHTML =
 					'<div class="thumb">' +

@@ -10,6 +10,7 @@ Ordered by each project's start date (oldest first). To add one, copy a row — 
 
 | Project | Focus | Page | Since |
 |---|---|---|---|
+| **SDM-D** | Segmentation-Description-Matching-Distilling — distill small fruit-perception models from foundation models without manual labels | [github.com/AgRoboticsResearch/SDM-D](https://github.com/AgRoboticsResearch/SDM-D) | 2024-11 |
 | **SROI** | Handheld stereo-camera device for collecting strawberry-harvesting demonstrations | [agroboticsresearch.github.io/sroi](https://agroboticsresearch.github.io/sroi/) | 2025-06 |
 | **SROI Datasets** | Imitation-learning datasets — ROS-bag demos + V2 LeRobot trajectories | [agroboticsresearch.github.io/sroi_datasets](https://agroboticsresearch.github.io/sroi_datasets/) | 2025-06 |
 | **East Planner** | Efficient, safe trajectory planning for agricultural-vehicle headland turning | [agroboticsresearch.github.io/east_planner](https://agroboticsresearch.github.io/east_planner/) | 2025-07 |
