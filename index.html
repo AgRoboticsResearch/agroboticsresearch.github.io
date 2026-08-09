@@ -155,28 +155,28 @@
 				url: "sroi/",
 				created: "2025-06-04",
 				abstract: "A portable handheld device with a stereo camera and cut-and-hold gripper for collecting human strawberry-harvesting demonstrations.",
-				image: "sroi/images/handhold_device_and_e_gripper.png"
+				image: "assets/gallery/sroi.jpg"
 			},
 			{
 				name: "SROI Datasets",
 				url: "sroi_datasets/",
 				created: "2025-06-04",
 				abstract: "Imitation-learning datasets of strawberry picking — multi-sensor ROS-bag demonstrations and V2 LeRobot trajectories.",
-				image: "sroi_datasets/images/v2/sample_color_frame.png"
+				image: "assets/gallery/sroi-datasets.jpg"
 			},
 			{
 				name: "East Planner",
 				url: "east_planner/",
 				created: "2025-07-04",
 				abstract: "Efficient and safe trajectory planning for autonomous agricultural-vehicle headland turning in cluttered environments.",
-				image: "east_planner/static/images/exp1.png"
+				image: "assets/gallery/east-planner.jpg"
 			},
 			{
 				name: "Dual-Arm MILP",
 				url: "dual_arm_milp/",
 				created: "2025-07-06",
 				abstract: "Optimal scheduling of a dual-arm robot for efficient strawberry harvesting in plant factories.",
-				image: "dual_arm_milp/static/images/front-cover-page-with-arrow.jpg"
+				image: "assets/gallery/dual-arm-milp.jpg"
 			},
 			{
 				name: "MegaFruits",
@@ -190,14 +190,14 @@
 				url: "exact-mppi/",
 				created: "2026-05-28",
 				abstract: "Exact signed-distance navigation for arbitrary-footprint robots.",
-				image: "exact-mppi/static/images/figure1_system_architecture.png"
+				image: "assets/gallery/exact-mppi.jpg"
 			},
 			{
 				name: "SROI V2",
 				url: "sroi_v2/",
 				created: "2026-08-09",
 				abstract: "A redesigned UMI-style handheld data-acquisition device and strawberry-harvesting end effector — collection, learning, autonomous harvesting.",
-				image: "sroi_v2/images/cover.jpg"
+				image: "assets/gallery/sroi-v2.jpg"
 			},
 			{
 				name: "GEAR-Seg",
@@ -211,7 +211,7 @@
 		const grid = document.getElementById("grid");
 		PROJECTS
 			.slice()
-			.sort((a, b) => (a.created < b.created ? -1 : a.created > b.created ? 1 : 0))
+			.sort((a, b) => (a.created > b.created ? -1 : a.created < b.created ? 1 : 0))
 			.forEach(p => {
 				const card = document.createElement("a");
 				card.className = "card";
