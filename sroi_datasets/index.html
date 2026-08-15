@@ -105,6 +105,16 @@
 									<span>V2 Project Page</span>
 								</a>
 							</span>
+
+							<!-- V2 LeRobot datasets on HF -->
+							<span class="link-block">
+								<a target="_blank" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion" class="external-link button is-normal is-rounded is-dark">
+									<span class="icon">
+										<i class="fas fa-database"></i>
+									</span>
+									<span>V2 LeRobot Datasets (HF)</span>
+								</a>
+							</span>
 							</div>
 						</div>
 						
@@ -166,6 +176,10 @@
 						</p>
 						<p class="paper-paragraph" align="justify">
 							The example collection shown here &mdash; <code>sroiv2_strawberry_picking_lab / 20260521_153031</code> &mdash; is a lab strawberry-picking session of <strong>85 episodes</strong>. From the full masked training set we also release a <strong>100-episode / 11,732-frame LeRobot&nbsp;v3.0</strong> subset (<code>sroiv2_strawberry_picking_lab_1000onesb_100</code>).
+						</p>
+						<p class="paper-paragraph" align="justify">
+							The full lab-picking collections are published on <strong>Hugging Face</strong> as LeRobot&nbsp;v3.0 datasets (task <em>&ldquo;pick the strawberry&rdquo;</em>):
+							the <strong>training set</strong> <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion" target="_blank"><code>zfff/sroiv2_strawberry_picking_lab_1459_occlusion</code></a> &mdash; <strong>1,459 episodes / 140,522 frames</strong>, and the paired held-out <strong>validation set</strong> <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation" target="_blank"><code>zfff/sroiv2_strawberry_picking_lab_validation</code></a> &mdash; <strong>100 episodes / 9,274 frames</strong>, recorded on a different day (no train/validation leakage).
 						</p>
 						<br>
 
@@ -318,6 +332,7 @@ python lerobot/sroi_to_lerobot.py --data_path ~/data/lab-pngs \
 						<ul style="margin-left:2em; font-size:100%; line-height:1.8;">
 							<li><strong>Example session</strong> <code>20260521_153031</code>: 85 episodes, RealSense D405, 640&times;480 @ 30&nbsp;fps (left/right stereo + color).</li>
 							<li><strong>LeRobot subset</strong> <code>sroiv2_strawberry_picking_lab_1000onesb_100</code>: 100 episodes, 11,732 frames, task <em>&ldquo;pick the strawberry&rdquo;</em>, action = 7-D EE pose + gripper, color video encoded av1.</li>
+							<li><strong>Published on Hugging Face:</strong> <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion" target="_blank">training set</a> &mdash; 1,459 episodes / 140,522 frames; held-out <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation" target="_blank">validation set</a> &mdash; 100 episodes / 9,274 frames.</li>
 							<li><strong>Trajectory:</strong> gripper-masked ORB-SLAM3 (fingers removed before tracking), transformed to an X-forward initial-camera frame.</li>
 							<li><strong>Gripper:</strong> AprilTag on the finger slider, normalized to the shared <em>1000-onesb</em> range so action vectors stay comparable across V2 datasets (<em>0 = closed, 1 = open</em>).</li>
 						</ul>
