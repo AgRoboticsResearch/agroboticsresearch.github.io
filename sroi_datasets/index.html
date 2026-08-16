@@ -1,541 +1,388 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>SROI Datasets</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=1000">
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="icon" type="image/x-icon" href="images/icon.png">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SROI Datasets — Strawberry-picking demonstrations for robot learning</title>
+  <meta name="description" content="SROI V2 strawberry-picking demonstrations in LeRobot v3.0, with a documented path from direct RealSense capture to RGB observations and 7-D end-effector actions.">
+  <meta name="theme-color" content="#f5f2e9">
+  <link rel="icon" type="image/png" href="images/icon.png">
+  <link rel="stylesheet" href="../assets/sroi-pages.css">
 
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-1NLS9R0S0P"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
+  <meta property="og:url" content="https://agroboticsresearch.github.io/sroi_datasets/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SROI Datasets — Strawberry-picking demonstrations for robot learning">
+  <meta property="og:description" content="The current SROI V2 LeRobot release, its exact data contract, provenance, and processing pipeline.">
+  <meta property="og:image" content="https://agroboticsresearch.github.io/sroi_datasets/images/v2/sample_color_frame.png">
 
-		  gtag('config', 'G-1NLS9R0S0P');
-		</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NLS9R0S0P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1NLS9R0S0P');
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-		<meta property="og:url"           content="https://agroboticsresearch.github.io/sroi_datasets_webpage/" />
-		<meta property="og:type"          content="website" />
-		<meta property="og:title"         content="SROI Datasets - Strawberry Robotic Operation Interface Datasets" />
-		<meta property="og:description"   content="A comprehensive dataset for imitation learning in robotic strawberry picking, featuring human demonstrations, visual data, and trajectory information for developing autonomous picking systems." />
-		
-		<style>
-			body {
-				color: #000000;
-			}
-		</style>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../" aria-label="AgRoboticsResearch home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>AgRoboticsResearch / SROI</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../sroi/">V1</a>
+        <a href="../sroi_v2/">SROI V2</a>
+        <a href="./" aria-current="page">Datasets</a>
+        <a class="nav-accent" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Get the data ↗</a>
+      </nav>
+    </div>
+  </header>
 
-		<!-- Font Awesome -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-		<!-- Bulma (CSS framework) -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <main id="main">
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Current release · LeRobot v3.0</p>
+            <h1>Human picks, <em>robot-ready</em> data.</h1>
+            <p class="hero-lede">
+              SROI turns handheld strawberry-picking demonstrations into synchronized RGB observations and end-effector actions. Start here for the final V2 training release; use the raw collection tree only when reproducing the processing pipeline.
+            </p>
+            <div class="button-row">
+              <a class="button primary" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Open training set</a>
+              <a class="button" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation">Open validation set</a>
+              <a class="button internal" href="#pipeline">Understand the pipeline</a>
+            </div>
+          </div>
 
-	</head>
-	<body id="top">
+          <div class="hero-media" aria-label="A sample SROI V2 strawberry-picking episode">
+            <div class="hero-frame dataset">
+              <video autoplay muted loop playsinline controls poster="images/v2/sample_color_frame.png">
+                <source src="images/v2/v2_example_color.mp4" type="video/mp4">
+                Your browser does not support embedded video.
+              </video>
+            </div>
+            <div class="floating-note">
+              <strong>What the policy sees</strong>
+              One 640 × 480 RGB observation, paired at 30 Hz with the next end-effector pose and gripper value.
+            </div>
+          </div>
+        </div>
 
-		<!-- Main -->
-			<div id="main" style="padding-bottom:1em; padding-top: 1em; width: 60em; max-width: 70em; margin-left: auto; margin-right: auto;">
-					<section id="four">
+        <div class="metrics" aria-label="Training dataset summary">
+          <div class="metric"><strong>1,459</strong><span>training episodes</span></div>
+          <div class="metric"><strong>140,522</strong><span>training frames</span></div>
+          <div class="metric"><strong>30 Hz</strong><span>synchronized rate</span></div>
+          <div class="metric"><strong>7-D</strong><span>end-effector action</span></div>
+          <div class="metric"><strong>78.1 min</strong><span>frame time at 30 Hz</span></div>
+        </div>
+      </div>
+    </section>
 
-						<h1 style="text-align: center; margin-bottom: 0.1em; color: #e02793; font-size: 300%; font-weight: bold;">
-							SROI DATASETS
-						</h1>
-						
-						<h2 style="text-align: center; white-space: nowrap; color: #000000; font-size: 170%; margin-bottom: 0.5em;">
-							Strawberry Robotic Operation Interface Datasets
-						</h2>
-						
-						<div class="publication-authors" style="text-align: center; line-height: 1.8; max-width: 800px; margin: 0 auto;">
-							<a href="#" style="color: #2F855A;">Hou Linsheng</a>,
-							<a href="#" style="color: #2F855A;">Lu Wenwu</a>,
-							<a href="#" style="color: #2F855A;">Yanan Wang</a>,
-							<a href="#" style="color: #2F855A;">Peng Chen</a>,
-							<a href="#" style="color: #2F855A;">Zhenghao Fei</a>
-						</div>
-						
-						<br>
-						
-						<!-- V2 banner -->
-						<div style="text-align:center; margin: 0.4em auto 1.2em auto; max-width: 740px; padding: 10px 16px; background:#fdecee; border:1px solid #f3c3c8; border-radius:10px; font-size:105%;">
-							<span style="color:#c42836; font-weight:600;">SROI V2 datasets &amp; data pipeline are now available!</span>
-							&nbsp;&nbsp;<a href="#sroi-v2" style="color:#e63946; font-weight:600; text-decoration:underline;">See the V2 dataset, pipeline &amp; example videos ↓</a>
-						</div>
+    <section class="section tint" id="release">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-index">01 / Choose a release</div>
+          <div class="section-copy">
+            <h2>Use V2 unless you specifically need ROS bags.</h2>
+            <p>The V2 pair has the same feature contract and shared gripper convention. The smaller collection is held out so evaluation stays separate from the main training release.</p>
+          </div>
+        </div>
 
-						<div class="column has-text-centered">
-							<div class="publication-links">
-								<!-- Dataset -->
-								<span class="link-block">
-									<a target="_blank" href="https://zenodo.org/records/15515834" class="external-link button is-normal is-rounded is-dark" style="padding-left: 10px; padding-right: 10px;">
-										<span class="icon">
-											<i class="fas fa-database"></i>
-										</span>
-										<span>Download Dataset</span>
-									</a>
-								</span>
-						
-								<!-- Paper -->
-								<span class="link-block">
-									<a target="_blank" href="https://arxiv.org/html/2501.16717v1" class="external-link button is-normal is-rounded is-dark">
-										<span class="icon">
-											<i class="fas fa-file-pdf"></i>
-										</span>
-										<span>Related Paper</span>
-									</a>
-								</span>
+        <div class="grid-2">
+          <article class="card release-card featured">
+            <span class="tag">Recommended · train</span>
+            <h3>SROI V2 lab picking</h3>
+            <div class="dataset-id">zfff/sroiv2_strawberry_picking_lab_1459_occlusion</div>
+            <p>1,459 episodes · 140,522 frames. Includes the base collection plus targeted occluded-case additions, all converted to the same LeRobot v3.0 schema.</p>
+            <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Browse on Hugging Face</a>
+          </article>
 
-							<!-- V2 Pipeline -->
-							<span class="link-block">
-								<a target="_blank" href="https://github.com/AgRoboticsResearch/sroi_rosbag_utilities" class="external-link button is-normal is-rounded" style="background-color:#e63946; color:#ffffff; border-color:#e63946;">
-									<span class="icon">
-										<i class="fas fa-cubes"></i>
-									</span>
-									<span>V2 Data Pipeline</span>
-								</a>
-							</span>
+          <article class="card release-card">
+            <span class="tag">Held-out collection</span>
+            <h3>SROI V2 validation</h3>
+            <div class="dataset-id">zfff/sroiv2_strawberry_picking_lab_validation</div>
+            <p>100 episodes · 9,274 frames. A separately collected evaluation set with the same RGB observation, 7-D action, 30 Hz rate, and AV1 video encoding.</p>
+            <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation">Browse on Hugging Face</a>
+          </article>
+        </div>
+      </div>
+    </section>
 
-							<!-- V2 Project Page -->
-							<span class="link-block">
-								<a target="_blank" href="../sroi_v2/" class="external-link button is-normal is-rounded is-dark">
-									<span class="icon">
-										<i class="fas fa-external-link-alt"></i>
-									</span>
-									<span>V2 Project Page</span>
-								</a>
-							</span>
+    <section class="section" id="contract">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-index">02 / Data contract</div>
+          <div class="section-copy">
+            <h2>One visual observation. One compact action.</h2>
+            <p>The final release intentionally keeps only what the learning pipeline consumes. Stereo is crucial upstream for trajectory recovery, but it is not duplicated into the training observation.</p>
+          </div>
+        </div>
 
-							<!-- V2 LeRobot datasets on HF -->
-							<span class="link-block">
-								<a target="_blank" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion" class="external-link button is-normal is-rounded is-dark">
-									<span class="icon">
-										<i class="fas fa-database"></i>
-									</span>
-									<span>V2 LeRobot Datasets (HF)</span>
-								</a>
-							</span>
-							</div>
-						</div>
-						
-						<style>
-							/* 调整按钮的文字颜色 */
-							.button.is-dark {
-								color: white !important;
-								background-color: #333 !important;
-								border-color: #333 !important;
-							}
-						
-							/* 调整按钮在悬停时的颜色 */
-							.button.is-dark:hover {
-								color: white !important;
-								background-color: #555 !important;
-								border-color: #555 !important;
-							}
-						
-							/* 如果图标颜色显示不合适，可以调整 */
-							.button .icon {
-								color: white !important;
-							}
-						
-							/* 让按钮排成两行 */
-							.publication-links {
-								text-align: center;
-								display: flex;
-								flex-wrap: wrap; /* 让按钮自动换行 */
-								justify-content: center;
-								gap: 10px; /* 控制按钮之间的间距 */
-							}
-						
-							.link-block {
-								display: inline-block;
-								margin: 5px;
-							}
-						
-							/* 使 ArXiv 按钮变窄 */
-							.button.is-dark span.icon + span {
-								margin-left: 5px; /* 控制文字和图标之间的间距 */
-							}
-						
-							.button.is-dark[style*="ArXiv"] {
-								padding-left: 10px;
-								padding-right: 10px;
-							}
-						</style>						
-						
-						<br>
-						
-						<hr style="margin-top: 0em;">
+        <div class="contract">
+          <article class="contract-card">
+            <div class="kicker">Observation</div>
+            <h3>First-person RGB</h3>
+            <p>The D405 color stream, encoded as AV1 video and exposed as <code>observation.images.camera</code>.</p>
+            <div class="tensor">video · <span>[480, 640, 3]</span> · 30 fps</div>
+          </article>
 
-						<h2 id="sroi-v2" style="text-align:center; color:#e63946; font-size:230%; margin:0.4em 0 0.1em 0;">&#127827; SROI V2 Dataset &#127827;</h2>
-						<p style="text-align:center; color:#555; margin:0 0 0.7em 0; font-size:108%;">RealSense D405 stereo + color &middot; handheld SROI V2 device &middot; gripper-masked ORB-SLAM3 trajectories &rarr; LeRobot</p>
+          <article class="contract-card">
+            <div class="kicker">Action</div>
+            <h3>Next-frame EE target</h3>
+            <p>Camera-trajectory position and rotation vector, stored under the EE-labelled schema, plus normalized gripper opening. The final frame repeats its own target.</p>
+            <div class="tensor"><span>[</span> ee.x, ee.y, ee.z, ee.wx, ee.wy, ee.wz, ee.gripper_pos <span>]</span></div>
+          </article>
+        </div>
 
-						<h3 style="color:#e63946; font-size:130%; margin-bottom:0.5em;">V2 Overview</h3>
-						<p class="paper-paragraph" align="justify">
-							The V2 dataset is recorded with the redesigned SROI V2 handheld device and an Intel RealSense D405 camera. Each demonstration captures synchronized <strong>left / right stereo</strong> and <strong>color</strong> streams at 640&times;480, 30&nbsp;fps. The stereo pair drives a <strong>gripper-masked ORB-SLAM3</strong> that recovers the camera trajectory, and an <strong>AprilTag</strong> on the finger slider gives the gripper opening &mdash; together they form the 7-D end-effector action used for imitation learning.
-						</p>
-						<p class="paper-paragraph" align="justify">
-							The example collection shown here &mdash; <code>sroiv2_strawberry_picking_lab / 20260521_153031</code> &mdash; is a lab strawberry-picking session of <strong>85 episodes</strong>. From the full masked training set we also release a <strong>100-episode / 11,732-frame LeRobot&nbsp;v3.0</strong> subset (<code>sroiv2_strawberry_picking_lab_1000onesb_100</code>).
-						</p>
-						<p class="paper-paragraph" align="justify">
-							The full lab-picking collections are published on <strong>Hugging Face</strong> as LeRobot&nbsp;v3.0 datasets (task <em>&ldquo;pick the strawberry&rdquo;</em>):
-							the <strong>training set</strong> <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion" target="_blank"><code>zfff/sroiv2_strawberry_picking_lab_1459_occlusion</code></a> &mdash; <strong>1,459 episodes / 140,522 frames</strong>, and the paired held-out <strong>validation set</strong> <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation" target="_blank"><code>zfff/sroiv2_strawberry_picking_lab_validation</code></a> &mdash; <strong>100 episodes / 9,274 frames</strong>, recorded on a different day (no train/validation leakage).
-						</p>
-						<br>
+        <div class="note">
+          <strong>Important metadata details:</strong> <code>robot_type: so100</code> is a compatibility label written by the converter. These are handheld SROI demonstrations, not SO-100 joint-teleoperation logs. The <code>ee.*</code> names are also a learning-schema convention: the converter writes the transformed D405 camera pose directly to those fields. Camera-to-gripper-tip extrinsics are used for projection QC, not baked into the released action. No joint state is released, and <code>observation.state</code> is intentionally omitted.
+        </div>
 
-						<hr style="margin-top: 0em;">
-						<h3 style="color:#e63946; font-size:130%; margin-bottom:0.5em;">Example Videos</h3>
-						<p class="paper-paragraph" align="justify">
-							One demonstration, <code>episode_001</code> (162 frames @ 30&nbsp;fps). The montage shows the three raw streams the device records &mdash; left, color and right &mdash; side by side; the second clip is the color (RGB) stream alone.
-						</p>
-						<div style="display:flex; flex-wrap:wrap; gap:1em; justify-content:center; align-items:center; margin:1em 0;">
-							<div style="flex:2 1 460px; min-width:300px;">
-								<video width="100%" controls loop muted preload="metadata" style="border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.15);">
-									<source src="images/v2/v2_example_stereo.mp4" type="video/mp4">
-								</video>
-								<div style="text-align:center; color:#666; font-size:90%; margin-top:0.3em;">Left &middot; Color &middot; Right stereo streams (640&times;480 @ 30 fps)</div>
-							</div>
-							<div style="flex:1 1 280px; min-width:240px; max-width:340px;">
-								<video width="100%" controls loop muted preload="metadata" style="border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.15);">
-									<source src="images/v2/v2_example_color.mp4" type="video/mp4">
-								</video>
-								<div style="text-align:center; color:#666; font-size:90%; margin-top:0.3em;">Color (RGB) stream</div>
-							</div>
-						</div>
-						<br>
+        <div class="table-wrap" style="margin-top: 22px;">
+          <table class="data-table">
+            <thead>
+              <tr><th>Field</th><th>Meaning</th><th>Representation</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>ee.x/y/z</code></td><td>D405 camera-trajectory translation after conversion to X-forward, Y-left, Z-up axes</td><td>3 × float32</td></tr>
+              <tr><td><code>ee.wx/wy/wz</code></td><td>D405 camera orientation as a rotation vector derived from that transformed pose matrix</td><td>3 × float32</td></tr>
+              <tr><td><code>ee.gripper_pos</code></td><td>AprilTag-derived opening, normalized with one shared V2 reference range</td><td>float32 · 0 closed / 1 open</td></tr>
+              <tr><td><code>task</code></td><td>Single task label used across the release</td><td>“pick the strawberry”</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
-						<hr style="margin-top: 0em;">
-						<h3 style="color:#e63946; font-size:130%; margin-bottom:0.5em;">Data Pipeline</h3>
-						<p class="paper-paragraph" align="justify">
-							From live recording to a LeRobot training dataset in six steps &mdash; <strong>Pipeline&nbsp;A</strong> in the <a href="https://github.com/AgRoboticsResearch/sroi_rosbag_utilities" target="_blank">sroi_rosbag_utilities</a> repository. (A legacy <strong>Pipeline&nbsp;B</strong> converts pre-recorded ROS <code>.bag</code> files &mdash; see the V1 section below.)
-						</p>
-						<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:0.8em; margin:1em 0;">
-							<div style="border:1px solid #f1d9dd; border-top:3px solid #e63946; border-radius:8px; padding:0.7em 0.9em; background:#fffafa;">
-							  <div style="color:#e63946; font-weight:700; font-size:105%;"><span style="display:inline-block; min-width:1.5em;">1.</span> <i class="fas fa-video"></i> Record</div>
-							  <div style="font-size:88%; color:#444; margin:0.25em 0 0.35em 1.7em;">RealSense D405 stereo + color, MP4 / PNG / JPEG</div>
-							  <code style="font-size:80%;">record_realsense.py</code>
-							</div>
-							<div style="border:1px solid #f1d9dd; border-top:3px solid #e63946; border-radius:8px; padding:0.7em 0.9em; background:#fffafa;">
-							  <div style="color:#e63946; font-weight:700; font-size:105%;"><span style="display:inline-block; min-width:1.5em;">2.</span> <i class="fas fa-photo-film"></i> Decode</div>
-							  <div style="font-size:88%; color:#444; margin:0.25em 0 0.35em 1.7em;">MP4 &rarr; PNG frames (one wipeable tree)</div>
-							  <code style="font-size:80%;">decode_videos.py / decode_batch.sh</code>
-							</div>
-							<div style="border:1px solid #f1d9dd; border-top:3px solid #e63946; border-radius:8px; padding:0.7em 0.9em; background:#fffafa;">
-							  <div style="color:#e63946; font-weight:700; font-size:105%;"><span style="display:inline-block; min-width:1.5em;">3.</span> <i class="fas fa-cube"></i> ORB-SLAM3 (masked)</div>
-							  <div style="font-size:88%; color:#444; margin:0.25em 0 0.35em 1.7em;">Gripper masked out of the stereo frames</div>
-							  <code style="font-size:80%;">orbslam_batch_local.sh --mask-config</code>
-							</div>
-							<div style="border:1px solid #f1d9dd; border-top:3px solid #e63946; border-radius:8px; padding:0.7em 0.9em; background:#fffafa;">
-							  <div style="color:#e63946; font-weight:700; font-size:105%;"><span style="display:inline-block; min-width:1.5em;">4.</span> <i class="fas fa-arrows-rotate"></i> Transform</div>
-							  <div style="font-size:88%; color:#444; margin:0.25em 0 0.35em 1.7em;">Trajectory &rarr; X-forward initial-camera frame</div>
-							  <code style="font-size:80%;">transform_trajectory.py</code>
-							</div>
-							<div style="border:1px solid #f1d9dd; border-top:3px solid #e63946; border-radius:8px; padding:0.7em 0.9em; background:#fffafa;">
-							  <div style="color:#e63946; font-weight:700; font-size:105%;"><span style="display:inline-block; min-width:1.5em;">5.</span> <i class="fas fa-hand"></i> Gripper</div>
-							  <div style="font-size:88%; color:#444; margin:0.25em 0 0.35em 1.7em;">AprilTag on finger slider &rarr; normalized [0,1]</div>
-							  <code style="font-size:80%;">gripper_estimation_april_tag.py</code>
-							</div>
-							<div style="border:1px solid #f1d9dd; border-top:3px solid #e63946; border-radius:8px; padding:0.7em 0.9em; background:#fffafa;">
-							  <div style="color:#e63946; font-weight:700; font-size:105%;"><span style="display:inline-block; min-width:1.5em;">6.</span> <i class="fas fa-check-double"></i> QC + LeRobot</div>
-							  <div style="font-size:88%; color:#444; margin:0.25em 0 0.35em 1.7em;">Filter episodes &amp; convert to LeRobot v3.0</div>
-							  <code style="font-size:80%;">qc.py + sroi_to_lerobot.py</code>
-							</div>
-						</div>
-						<div style="background:#1e1e1e; color:#eee; border-radius:8px; padding:0.9em 1.1em; margin:1em 0; overflow-x:auto;">
-							<pre style="margin:0; white-space:pre; font-family:'SFMono-Regular',Consolas,Menlo,monospace; font-size:82%; line-height:1.55;"># 1. record (headless, mp4)
-python record_realsense.py -o ~/data/lab --camera realsense_d405 --encode-video --headless
+    <section class="section tint" id="pipeline">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-index">03 / Source to release</div>
+          <div class="section-copy">
+            <h2>Three recorded streams become one learning sample.</h2>
+            <p>The raw tree and the LeRobot tree serve different jobs. Raw MP4 and decoded PNG data preserve the evidence needed to estimate motion; the released dataset packages only RGB plus action.</p>
+          </div>
+        </div>
 
-# 2. decode the whole day into a wipeable png tree (mp4 store stays pristine)
-batches/decode_batch.sh ~/data/lab ~/data/lab-pngs --jobs 8
+        <div class="flow" aria-label="SROI V2 processing pipeline">
+          <article class="flow-step">
+            <span class="flow-no">01 · CAPTURE</span>
+            <h3>Direct RealSense recording</h3>
+            <p>D405 left IR, right IR, and color at 640 × 480 / 30 fps. Current Pi capture uses pyrealsense2, not ROS bags.</p>
+          </article>
+          <article class="flow-step">
+            <span class="flow-no">02 · DECODE</span>
+            <h3>Regenerable PNG tree</h3>
+            <p>MP4 sessions are decoded into a separate working tree. The raw compressed recordings remain unchanged.</p>
+          </article>
+          <article class="flow-step">
+            <span class="flow-no">03 · ESTIMATE</span>
+            <h3>Masked stereo SLAM</h3>
+            <p>The visible gripper is masked from both IR views before ORB-SLAM3 estimates the camera trajectory.</p>
+          </article>
+          <article class="flow-step">
+            <span class="flow-no">04 · ALIGN</span>
+            <h3>Pose + gripper</h3>
+            <p>Trajectory axes are converted; AprilTags in the color stream recover a normalized gripper signal.</p>
+          </article>
+          <article class="flow-step">
+            <span class="flow-no">05 · RELEASE</span>
+            <h3>QC + LeRobot</h3>
+            <p>Accepted episodes become AV1 RGB observations, Parquet actions, episode metadata, and statistics.</p>
+          </article>
+        </div>
 
-# 3. ORB-SLAM3 WITH the gripper mask (the standard V2 path)
-batches/orbslam_batch_local.sh ~/data/lab-pngs ~/code/ORB_SLAM3 true false \
-    --mask-config configs/gripper_mask_sroi_v2_d405.json
+        <div class="branch-flow" aria-label="Raw and processed data relationship">
+          <div class="branch-box">
+            <h3>Raw / source of truth</h3>
+            <p><code>*-mp4/episode_N/</code><br>left.mp4 · right.mp4 · color.mp4 · hardware timestamps · camera calibration</p>
+          </div>
+          <div class="branch-arrow" aria-hidden="true">→</div>
+          <div class="branch-box">
+            <h3>Processing intermediates</h3>
+            <p><code>*-png/episode_N/</code><br>decoded frames · masked-SLAM trajectory · transformed pose · gripper distances · QC outputs</p>
+          </div>
+          <div class="branch-arrow" aria-hidden="true">→</div>
+          <div class="branch-box output">
+            <h3>Final / use this</h3>
+            <p><code>LeRobot v3.0</code><br>RGB video · 7-D action Parquet · episode/task metadata · dataset statistics</p>
+          </div>
+        </div>
 
-# 4. transform trajectory into an X-forward initial-camera frame
-python transform_trajectory.py --recursive ~/data/lab-pngs
+        <div class="button-row">
+          <a class="button dark" href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Open processing pipeline</a>
+          <a class="button" href="https://github.com/AgRoboticsResearch/sroi_rasp_system">Open recorder system</a>
+        </div>
+      </div>
+    </section>
 
-# 5. gripper distance from the AprilTag (shared 1000-onesb range)
-python gripper_estimation_april_tag.py --recursive ~/data/lab-pngs \
-    --configs configs/sroi_v2_d405_1000_onesb_range.json
+    <section class="section" id="inspect">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-index">04 / Inspect an episode</div>
+          <div class="section-copy">
+            <h2>See the distinction, frame by frame.</h2>
+            <p>The left video shows the released RGB view. The right montage shows all three raw streams used during processing; only the center color view enters the final observation.</p>
+          </div>
+        </div>
 
-# 6. QC, then convert the ok episodes into one LeRobot dataset
-python visualization/qc.py ~/data/lab-pngs -o ~/data/lab-pngs/qc
-python lerobot/sroi_to_lerobot.py --data_path ~/data/lab-pngs \
-    --repo_id sroi/lab_picking --fps 30 --task "pick the strawberry" \
-    --qc_csv ~/data/lab-pngs/qc.csv --qc_categories ok</pre>
-						</div>
-						<br>
+        <div class="media-grid">
+          <figure class="media-card">
+            <video controls muted loop playsinline preload="metadata" poster="images/v2/sample_color_frame.png">
+              <source src="images/v2/v2_example_color.mp4" type="video/mp4">
+            </video>
+            <figcaption class="media-caption">Released observation · color RGB · 640 × 480 · 30 fps</figcaption>
+          </figure>
+          <figure class="media-card wide">
+            <video controls muted loop playsinline preload="metadata">
+              <source src="images/v2/v2_example_stereo.mp4" type="video/mp4">
+            </video>
+            <figcaption class="media-caption">Raw diagnostic montage · left IR / color / right IR</figcaption>
+          </figure>
+        </div>
 
-						<hr style="margin-top: 0em;">
-						<h3 style="color:#e63946; font-size:130%; margin-bottom:0.5em;">Data Explained</h3>
-						<p class="paper-paragraph" align="justify">
-							Each demonstration lives in three forms on disk &mdash; the raw recording, the processed episode with SLAM + gripper outputs, and the final LeRobot dataset.
-						</p>
-						<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(255px, 1fr)); gap:1em; margin:1em 0;">
-							<div style="border:1px solid #eee; border-radius:8px; padding:0.8em 1em; background:#fafafa;">
-							  <div style="color:#e63946; font-weight:700; margin-bottom:0.4em;">&#9312; Raw recording <code style='font-size:85%;'>-mp4/episode_NN/</code></div>
-							  <ul style="margin:0 0 0 1.2em; padding:0; font-size:87%; line-height:1.75;">
-							    <li><code>color.mp4</code> &middot; <code>left.mp4</code> &middot; <code>right.mp4</code></li>
-							    <li><code>camera_info_{color,left,right}.json</code></li>
-							    <li><code>orb_slam_realsense_d405.yaml</code> (auto-written)</li>
-							    <li><code>timestamps.json</code> &middot; <code>times.txt</code></li>
-							  </ul>
-							</div>
-							<div style="border:1px solid #eee; border-radius:8px; padding:0.8em 1em; background:#fafafa;">
-							  <div style="color:#e63946; font-weight:700; margin-bottom:0.4em;">&#9313; Processed <code style='font-size:85%;'>-png/episode_NN/</code></div>
-							  <ul style="margin:0 0 0 1.2em; padding:0; font-size:87%; line-height:1.75;">
-							    <li><code>color_*.png</code> / <code>left_*.png</code> / <code>right_*.png</code></li>
-							    <li><code>CameraTrajectory.txt</code> (ORB-SLAM3)</li>
-							    <li><code>CameraTrajectoryTransformed.txt</code></li>
-							    <li><code>gripper_distances.txt</code> (+<code>.jpg</code>) &middot; <code>gripper_normalization.json</code></li>
-							    <li>session-level: <code>qc.csv</code> &middot; <code>qc.pdf</code> &middot; <code>gripper_distance_distribution.png</code></li>
-							  </ul>
-							</div>
-							<div style="border:1px solid #eee; border-radius:8px; padding:0.8em 1em; background:#fafafa;">
-							  <div style="color:#e63946; font-weight:700; margin-bottom:0.4em;">&#9314; LeRobot v3.0 dataset</div>
-							  <ul style="margin:0 0 0 1.2em; padding:0; font-size:87%; line-height:1.75;">
-							    <li><code>data/chunk-000/file-000.parquet</code></li>
-							    <li><code>videos/observation.images.camera/chunk-000/file-000.mp4</code> (av1)</li>
-							    <li><code>meta/info.json</code> &middot; <code>stats.json</code> &middot; <code>tasks.parquet</code></li>
-							    <li><code>action</code> (7-D): <code>[ee.x ee.y ee.z &nbsp; ee.wx ee.wy ee.wz &nbsp; ee.gripper_pos]</code></li>
-							    <li>gripper: <em>0 = closed, 1 = open</em></li>
-							  </ul>
-							</div>
-						</div>
-						<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1em; margin:1.2em 0;">
-							<figure style="margin:0; text-align:center;">
-							  <img src="images/v2/v2_overlay_projection.jpg" style="width:100%; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.12); background:#fff;">
-							  <figcaption style="color:#666; font-size:85%; margin-top:0.35em;">Projected gripper-tip trajectory overlaid on a color frame &mdash; QC view (start &#9679; &rarr; end &#9632;)</figcaption>
-							</figure>
-							<figure style="margin:0; text-align:center;">
-							  <img src="images/v2/sample_color_frame.png" style="width:100%; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.12); background:#fff;">
-							  <figcaption style="color:#666; font-size:85%; margin-top:0.35em;">A captured color frame (mid-pick)</figcaption>
-							</figure>
-							<figure style="margin:0; text-align:center;">
-							  <img src="images/v2/v2_trajectory_topdown.png" style="width:100%; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.12); background:#1a1a1a;">
-							  <figcaption style="color:#666; font-size:85%; margin-top:0.35em;">ORB-SLAM3 camera trajectory &mdash; episode 001 (start &#9679; &rarr; end &#9632;)</figcaption>
-							</figure>
-							<figure style="margin:0; text-align:center;">
-							  <img src="images/v2/gripper_signal_episode.jpg" style="width:100%; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.12); background:#fff;">
-							  <figcaption style="color:#666; font-size:85%; margin-top:0.35em;">AprilTag gripper distance over one episode</figcaption>
-							</figure>
-							<figure style="margin:0; text-align:center;">
-							  <img src="images/v2/gripper_distance_distribution.png" style="width:100%; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.12); background:#fff;">
-							  <figcaption style="color:#666; font-size:85%; margin-top:0.35em;">Pooled gripper-distance histogram &amp; normalization range</figcaption>
-							</figure>
-						</div>
-						<br>
+        <div class="plot-grid">
+          <figure class="plot-card">
+            <img src="images/v2/v2_overlay_projection.jpg" alt="Projected gripper-tip trajectory over an RGB observation">
+            <figcaption class="media-caption">Projection QC · gripper-tip path on the first-person view</figcaption>
+          </figure>
+          <figure class="plot-card">
+            <img src="images/v2/v2_trajectory_topdown.png" alt="Top-down ORB-SLAM3 trajectory plot">
+            <figcaption class="media-caption">Trajectory QC · transformed path for one demonstration</figcaption>
+          </figure>
+          <figure class="plot-card">
+            <img src="images/v2/gripper_signal_episode.jpg" alt="Normalized gripper opening over one episode">
+            <figcaption class="media-caption">Gripper QC · AprilTag-derived opening over time</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
 
-						<hr style="margin-top: 0em;">
-						<h3 style="color:#e63946; font-size:130%; margin-bottom:0.5em;">V2 Statistics</h3>
-						<ul style="margin-left:2em; font-size:100%; line-height:1.8;">
-							<li><strong>Example session</strong> <code>20260521_153031</code>: 85 episodes, RealSense D405, 640&times;480 @ 30&nbsp;fps (left/right stereo + color).</li>
-							<li><strong>LeRobot subset</strong> <code>sroiv2_strawberry_picking_lab_1000onesb_100</code>: 100 episodes, 11,732 frames, task <em>&ldquo;pick the strawberry&rdquo;</em>, action = 7-D EE pose + gripper, color video encoded av1.</li>
-							<li><strong>Published on Hugging Face:</strong> <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion" target="_blank">training set</a> &mdash; 1,459 episodes / 140,522 frames; held-out <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation" target="_blank">validation set</a> &mdash; 100 episodes / 9,274 frames.</li>
-							<li><strong>Trajectory:</strong> gripper-masked ORB-SLAM3 (fingers removed before tracking), transformed to an X-forward initial-camera frame.</li>
-							<li><strong>Gripper:</strong> AprilTag on the finger slider, normalized to the shared <em>1000-onesb</em> range so action vectors stay comparable across V2 datasets (<em>0 = closed, 1 = open</em>).</li>
-						</ul>
-						<br>
+    <section class="section tint" id="provenance">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-index">05 / Provenance</div>
+          <div class="section-copy">
+            <h2>A merged release with one gripper convention.</h2>
+            <p>The 1,459-episode dataset is not a mystery folder. Its local release record identifies the inputs, official merge tool, counts, codec, and shared normalization range.</p>
+          </div>
+        </div>
 
-						<hr style="margin-top: 0em; border:none; border-top:2px solid #e02793;">
-						<h2 style="color:#e02793; font-size:190%; margin:0.4em 0 0.2em 0;">SROI V1 Dataset &mdash; ROS bags</h2>
-						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Overview</h3>
-						<p class="paper-paragraph" align="justify">
-							The SROI dataset contains demonstrations of expert strawberry picking operations, collected using a teleoperated robotic system. Each demonstration includes synchronized data from multiple sensors, capturing the complete picking process from approach to successful harvest.
-						</p>
-						<p class="paper-paragraph" align="justify">
-							Key benefits of the SROI dataset:
-							<ul style="margin-left: 2em; margin-top: 1em;">
-								<li><strong>Multi-sensor Fusion:</strong> Combines stereo RGB images from OAK camera and Intel RealSense D435, along with IMU data for robust perception and motion analysis.</li>
-								<li><strong>High-Quality Demonstrations:</strong> Expert demonstrations ensure high-quality training data for imitation learning and policy development.</li>
-								<li><strong>Comprehensive Coverage:</strong> Includes various picking scenarios, lighting conditions, and strawberry cluster configurations for diverse training scenarios.</li>
-								<li><strong>Rich Annotations:</strong> Includes action status information and camera calibration data for precise analysis and system development.</li>
-							</ul>
-						</p>
-						<br>
+        <div class="provenance">
+          <article class="provenance-path">
+            <h3 style="margin:0;">Training release lineage</h3>
+            <p style="color:var(--muted);">The targeted additions increase representation of occluded picking cases; the dataset name does not imply every base episode is occluded.</p>
+            <div class="sum-row">
+              <div class="sum-part"><strong>1,125</strong><span>base, QC “ok”</span></div>
+              <div class="sum-part"><strong>177</strong><span>July occlusion cases</span></div>
+              <div class="sum-part"><strong>157</strong><span>August occlusion cases</span></div>
+            </div>
+            <div class="sum-total"><strong>1,459 episodes</strong><br>140,522 frames · AV1 video</div>
+          </article>
 
-						<hr style="margin-top: 0em;">
-						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Demo</h3>
-						<p class="paper-paragraph" align="justify">
-							The demo video below shows synchronized data from multiple sensors during a strawberry picking operation:
-							<ul style="margin-left: 2em; margin-top: 1em;">
-								<li><strong>Left Panel:</strong> IMU data visualization showing motion patterns during picking</li>
-								<li><strong>Right Panel:</strong> Synchronized left and right RGB camera feeds from OAK camera</li>
-							</ul>
-						</p>
-						<div style="text-align: center; margin: 2em 0;">
-							<video width="100%" controls autoplay loop muted style="max-width: 1200px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-								<source src="images/SROI_datasets_demo_01.mp4" type="video/mp4">
-								Your browser does not support the video tag.
-							</video>
-						</div>
-						<br>
+          <article class="card">
+            <ul class="fact-list">
+              <li><strong>Episode length</strong><span>45–229 frames; median 91 frames (about 3.0 seconds)</span></li>
+              <li><strong>Shared normalization</strong><span>All inputs use the same gripper reference range: 84.0789–261.7803 detector pixels</span></li>
+              <li><strong>Merge implementation</strong><span>Official <code>lerobot_edit_dataset</code> merge operation, LeRobot 0.5.2</span></li>
+              <li><strong>Release snapshot</strong><span>LeRobot codebase format v3.0 · created 4 August 2026</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
 
-						<hr style="margin-top: 0em;">
-						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Structure</h3>
-						<p class="paper-paragraph" align="justify">
-							The dataset is organized as ROS bags containing the following topics:
-							<ul style="margin-left: 2em; margin-top: 1em;">
-								<li><strong>OAK Camera Topics:</strong>
-									<ul style="margin-left: 1em;">
-										<li><code>/oak/left/image_raw/compressed</code> - Left camera RGB images</li>
-										<li><code>/oak/right/image_raw/compressed</code> - Right camera RGB images</li>
-										<li><code>/oak/imu/data</code> - IMU sensor data</li>
-									</ul>
-								</li>
-								<li><strong>Intel RealSense D435 Topics:</strong>
-									<ul style="margin-left: 1em;">
-										<li><code>/camera/color/image_raw/compressed</code> - RGB camera images</li>
-										<li><code>/camera/infra1/image_rect_raw/compressed</code> - Left IR camera images</li>
-										<li><code>/camera/infra2/image_rect_raw/compressed</code> - Right IR camera images</li>
-										<li><code>/camera/imu</code> - IMU sensor data</li>
-										<li><code>/camera/accel/imu_info</code> - Accelerometer information</li>
-										<li><code>/camera/gyro/imu_info</code> - Gyroscope information</li>
-										<li><code>/camera/color/camera_info</code> - RGB camera calibration info</li>
-										<li><code>/camera/infra1/camera_info</code> - Left IR camera calibration info</li>
-										<li><code>/camera/infra2/camera_info</code> - Right IR camera calibration info</li>
-									</ul>
-								</li>
-								<li><strong>System Topics:</strong>
-									<ul style="margin-left: 1em;">
-										<li><code>/upi/status/is_action</code> - Action status information</li>
-										<li><code>/clock</code> - ROS time synchronization</li>
-									</ul>
-								</li>
-							</ul>
-						</p>
-						<br>
+    <section class="section" id="layout">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-index">06 / On disk</div>
+          <div class="section-copy">
+            <h2>The final tree is small and conventional.</h2>
+            <p>Parquet carries actions and index fields; MP4 carries RGB observations; metadata describes features, per-episode ranges, tasks, and aggregate statistics.</p>
+          </div>
+        </div>
 
-						<hr style="margin-top: 0em;">
-						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Visualizing the Dataset on the Web</h3>
-						<p class="paper-paragraph" align="justify">
-							You can directly visualize the ROS bag data in your web browser using Foxglove Studio, a powerful web-based visualization tool that allows for interactive exploration of your data without needing to install desktop software.
-						</p>
+        <pre class="file-tree" aria-label="LeRobot dataset directory tree">sroiv2_strawberry_picking_lab_1459_occlusion/
+├── <span class="hot">data/chunk-000/file-000.parquet</span>            <span class="dim"># frame records + 7-D action</span>
+├── <span class="hot">videos/observation.images.camera/</span>
+│   └── chunk-000/file-000.mp4 … file-012.mp4  <span class="dim"># AV1 RGB</span>
+└── meta/
+    ├── info.json                                  <span class="dim"># schema + counts + paths</span>
+    ├── stats.json                                 <span class="dim"># aggregate statistics</span>
+    ├── tasks.parquet                              <span class="dim"># task vocabulary</span>
+    └── episodes/chunk-000/file-000.parquet        <span class="dim"># 1,459 rows</span></pre>
 
-						<h4 style="margin-bottom: 0.3em; color: #1E3A8A; font-size: 115%; margin-top: 1em;">Using Foxglove Studio</h4>
-						<p class="paper-paragraph" align="justify">
-							Here's how to get started:
-							<ol style="margin-left: 2em; margin-top: 1em;">
-								<li>Visit <a href="https://studio.foxglove.dev/" target="_blank">Foxglove Studio</a> in your browser.</li>
-								<li>Click "Open local file" and select your ROS bag file.</li>
-								<li>Configure your layout by adding panels for:
-									<ul style="margin-left: 1em;">
-										<li>Image panels for:
-											<ul style="margin-left: 1em;">
-												<li>OAK camera: <code>/oak/left/image_raw/compressed</code> and <code>/oak/right/image_raw/compressed</code></li>
-												<li>D435 camera: <code>/camera/color/image_raw/compressed</code>, <code>/camera/infra1/image_rect_raw/compressed</code>, and <code>/camera/infra2/image_rect_raw/compressed</code></li>
-											</ul>
-										</li>
-										<li>Plot panels for:
-											<ul style="margin-left: 1em;">
-												<li>OAK IMU: <code>/oak/imu/data</code></li>
-												<li>D435 IMU: <code>/camera/imu</code></li>
-											</ul>
-										</li>
-										<li>Raw Messages panel for <code>/upi/status/is_action</code></li>
-									</ul>
-								</li>
-								<li>Use the playback controls to navigate through the data.</li>
-							</ol>
-						</p>
-						<br>
+        <div class="note">
+          <strong>Reproducibility boundary:</strong> the public LeRobot tree is the training artifact. To regenerate trajectories or change masking, calibration, gripper normalization, or QC criteria, return to the raw recordings and the <a href="https://github.com/AgRoboticsResearch/sroi_dataprocess">processing repository</a>.
+        </div>
+      </div>
+    </section>
 
-						<hr style="margin-top: 0em;">
-						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Usage</h3>
-						<p class="paper-paragraph" align="justify">
-							To help you get started with the SROI dataset, we provide a set of utilities for processing and analyzing the ROS bag files. These utilities include:
-							<ul style="margin-left: 2em; margin-top: 1em;">
-								<li>ROS bag processing scripts</li>
-								<li>Data extraction and conversion tools</li>
-								<li>Example visualization code</li>
-								<li>Utility functions for common tasks</li>
-							</ul>
-						</p>
-						<p class="paper-paragraph" align="justify">
-							Visit our <a href="https://github.com/AgRoboticsResearch/sroi_rosbag_utilities" target="_blank">SROI_rosbags_utilities</a> repository to access these tools and get started with your analysis.
-						</p>
-						<br>
+    <section class="section tint" id="v1">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-index">07 / Historical release</div>
+          <div class="section-copy">
+            <h2>SROI V1 remains available as ROS bags.</h2>
+            <p>Use the Zenodo archive when your work depends on the original multi-camera field recordings or ROS topics. It is a different release format and should not be confused with the V2 LeRobot pair above.</p>
+          </div>
+        </div>
 
-						<hr style="margin-top: 0em;">
-						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Dataset Statistics</h3>
-						<p class="paper-paragraph" align="justify">
-							The dataset is broadly categorized into two main sources, presumably from different camera setups (e.g., OAK and RealSense D435). Here's a brief statistical overview:
-						</p>
+        <article class="archive-card">
+          <div>
+            <h3>Original field dataset, preserved.</h3>
+            <p>V1 was collected at two strawberry farms from December 2024 to January 2025. It includes OAK-D-SR and RealSense D435i configurations, stereo imagery, IMU data, camera calibration, and action-segmentation status in ROS bags.</p>
+            <div class="button-row">
+              <a class="button primary" href="https://zenodo.org/records/15515834">Download V1 on Zenodo</a>
+              <a class="button" href="https://arxiv.org/html/2501.16717v1">Read the V1 paper</a>
+              <a class="button internal" href="../sroi/">Open V1 project page</a>
+            </div>
+          </div>
+          <div class="archive-facts">
+            <div class="archive-fact"><strong>OAK-D-SR</strong><span>1280 × 720 stereo RGB · 30 fps · 400 Hz IMU</span></div>
+            <div class="archive-fact"><strong>RealSense D435i</strong><span>848 × 480 stereo IR + RGB · 30 fps · accel / gyro IMU</span></div>
+            <div class="archive-fact"><strong>Workflow</strong><span>ROS bag recording → segmentation → extraction → SLAM / gripper processing</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-						<h4 style="margin-bottom: 0.3em; color: #1E3A8A; font-size: 115%; margin-top: 1em;">Summary 1 (e.g., OAK Camera Data)</h4>
-						<ul style="margin-left: 2em; margin-top: 1em;">
-							<li><strong>Total Files Processed:</strong> 17</li>
-							<li><strong>Total Segments Found:</strong> 73</li>
-							<li><strong>Average Segment Duration:</strong> 7.34 seconds</li>
-						</ul>
+    <section class="section">
+      <div class="shell">
+        <div class="handoff">
+          <div class="handoff-grid">
+            <div>
+              <p class="eyebrow" style="color:#ffd5d8;">Ready to work with SROI?</p>
+              <h2>Download the final release, then trace anything uncertain back to source.</h2>
+              <p>Dataset questions: Zhenghao Fei · zfei@zju.edu.cn</p>
+            </div>
+            <div class="button-row">
+              <a class="button" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Training set</a>
+              <a class="button internal" href="../sroi_v2/">SROI V2 device</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-						<h4 style="margin-bottom: 0.3em; color: #1E3A8A; font-size: 115%; margin-top: 1em;">Summary 2 (e.g., RealSense D435 Data)</h4>
-						<ul style="margin-left: 2em; margin-top: 1em;">
-							<li><strong>Total Files Processed:</strong> 14</li>
-							<li><strong>Total Segments Found:</strong> 241</li>
-							<li><strong>Average Segment Duration:</strong> 2.42 seconds</li>
-						</ul>
-						<br>
-
-						<hr style="margin-top: 0em;">
-						<h3 style="margin-bottom: 0.5em; color: #1E3A8A; font-size: 130%;">Contact</h3>
-						<p><a href="https://github.com/ZhenghaoFei/">Fei Zhenghao</a>, <span style="color:rgb(62, 61, 61)">zfei@zju.edu.cn</span></p>
-					</section>
-			</div>
-
-
-			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="0" width="0" style="position: absolute;">
-				<defs>
-					<!-- Go-up -->
-					<g id="go-up">
-						<path d="M10,9V5L3,12L10,19V14.9C15,14.9 18.5,16.5 21,20C20,15 17,10 10,9Z" fill="#696969"/>
-					</g>
-					<!-- Folder -->
-					<g id="folder" fill-rule="nonzero" fill="none">
-						<path d="M285.22 37.55h-142.6L110.9 0H31.7C14.25 0 0 16.9 0 37.55v75.1h316.92V75.1c0-20.65-14.26-37.55-31.7-37.55z" fill="#FFA000"/>
-						<path d="M285.22 36H31.7C14.25 36 0 50.28 0 67.74v158.7c0 17.47 14.26 31.75 31.7 31.75H285.2c17.44 0 31.7-14.3 31.7-31.75V67.75c0-17.47-14.26-31.75-31.7-31.75z" fill="#FFCA28"/>
-					</g>
-					<g id="folder-shortcut" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-						<g id="folder-shortcut-group" fill-rule="nonzero">
-							<g id="folder-shortcut-shape">
-								<path d="M285.224876,37.5486902 L142.612438,37.5486902 L110.920785,0 L31.6916529,0 C14.2612438,0 0,16.8969106 0,37.5486902 L0,112.646071 L316.916529,112.646071 L316.916529,75.0973805 C316.916529,54.4456008 302.655285,37.5486902 285.224876,37.5486902 Z" id="Shape" fill="#FFA000"></path>
-								<path d="M285.224876,36 L31.6916529,36 C14.2612438,36 0,50.2838568 0,67.7419039 L0,226.451424 C0,243.909471 14.2612438,258.193328 31.6916529,258.193328 L285.224876,258.193328 C302.655285,258.193328 316.916529,243.909471 316.916529,226.451424 L316.916529,67.7419039 C316.916529,50.2838568 302.655285,36 285.224876,36 Z" id="Shape" fill="#FFCA28"></path>
-							</g>
-						</g>
-					</g>
-					<!-- File -->
-					<g id="file" stroke="#000" stroke-width="25" fill="#FFF" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-						<path d="M13 24.12v274.76c0 6.16 5.87 11.12 13.17 11.12H239c7.3 0 13.17-4.96 13.17-11.12V136.15S132.6 13 128.37 13H26.17C18.87 13 13 17.96 13 24.12z"/>
-						<path d="M129.37 13L129 113.9c0 10.58 7.26 19.1 16.27 19.1H249L129.37 13z"/>
-					</g>
-					<g id="file-shortcut" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-						<g id="file-shortcut-group" transform="translate(13.000000, 13.000000)">
-							<g id="file-shortcut-shape" stroke="#000000" stroke-width="25" fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
-								<path d="M0,11.1214886 L0,285.878477 C0,292.039924 5.87498876,296.999983 13.1728373,296.999983 L225.997983,296.999983 C233.295974,296.999983 239.17082,292.039942 239.17082,285.878477 L239.17082,123.145388 C239.17082,123.145388 119.58541,2.84217094e-14 115.369423,2.84217094e-14 L13.1728576,2.84217094e-14 C5.87500907,-1.71479982e-05 0,4.96022995 0,11.1214886 Z" id="rect1171"></path>
-								<path d="M116.37005,0 L116,100.904964 C116,111.483663 123.258008,120 132.273377,120 L236,120 L116.37005,0 L116.37005,0 Z" id="rect1794"></path>
-							</g>
-							<path d="M47.803141,294.093878 C48.4999811,295.177551 48.9495553,296.095918 49.4216083,296.995918 C50.1184484,297.895918 50.5680227,298.630612 51.2873415,299.365306 C52.2089688,300.44898 53.3778619,301 54.7490634,301 C56.1427436,301 57.0643709,300.632653 57.761211,299.916327 C58.4580511,299.365306 58.9076254,298.465306 58.9076254,297.381633 C58.9076254,296.830612 58.9076254,295.930612 58.6828382,294.828571 C58.4355724,293.561224 58.2107852,292.844898 58.2107852,292.477551 C57.7387323,287.757143 57.5139451,283.753061 57.5139451,279.95102 C57.5139451,273.228571 58.4355724,267.057143 59.8292526,261.602041 C61.44772,256.165306 63.5382403,251.610204 66.0783349,247.62449 C68.8656954,243.620408 72.3274172,240.35102 76.4859792,237.44898 C80.6445412,234.546939 85.2751561,232.177551 90.1305582,230.359184 C94.9859603,228.540816 100.76299,227.089796 107.236859,226.006122 C113.710728,225.087755 120.409385,224.371429 127.13052,223.820408 C133.829177,223.453061 141.247152,223.269388 149.811542,223.269388 L167.704598,223.269388 L167.704598,249.057143 C167.704598,250.87551 168.401438,252.326531 170.019905,253.593878 C171.86316,254.861224 173.728893,255.595918 176.021722,255.595918 C178.112242,255.595918 180.180284,254.861224 181.82123,253.593878 L247.751296,201.834694 C249.369763,200.567347 250.291391,199.116327 250.291391,197.297959 C250.291391,195.479592 249.369763,194.028571 247.751296,192.761224 L181.82123,141.002041 C180.202763,139.734694 178.112242,139 176.044201,139 C173.728893,139 171.885639,139.734694 170.042384,141.002041 C168.423917,142.269388 167.727077,143.720408 167.727077,145.538776 L167.727077,171.326531 L149.811542,171.326531 C88.5120908,171.326531 50.8152886,184.955102 36.9234437,212.193878 C32.3153075,221.267347 30,232.526531 30,245.971429 C30,257.046939 35.5522422,272.291837 46.4094607,291.540816 C46.6567266,292.091837 47.1063009,292.826531 47.803141,294.093878 Z" id="Shape-Copy" fill="#000000" fill-rule="nonzero" transform="translate(140.145695, 220.000000) scale(-1, 1) translate(-140.145695, -220.000000) "></path>
-						</g>
-					</g>
-				</defs>
-			</svg>
-
-		<!-- Footer -->
-			<!-- <footer id="footer">
-				<div class="inner">
-					<ul class="copyright">
-						<li>Meet <a href="https://en.wikipedia.org/wiki/Danbo_(character)">Danbo</a> the cardboard robot.</li>
-					</ul>
-				</div>
-			</footer> -->
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.poptrox.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-	</body>
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span>AgRoboticsResearch / SROI</span></a>
+        <div>Strawberry-picking data from capture to deployment.</div>
+      </div>
+      <div class="footer-links">
+        <a href="../sroi_v2/">SROI V2</a>
+        <a href="https://github.com/AgRoboticsResearch/sroi_v2">Hardware</a>
+        <a href="https://github.com/AgRoboticsResearch/sroi_rasp_system">Recorder</a>
+        <a href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Processing</a>
+      </div>
+    </div>
+  </footer>
+</body>
 </html>
