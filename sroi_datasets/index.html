@@ -3,18 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SROI Datasets — Strawberry-picking demonstrations for robot learning</title>
-  <meta name="description" content="SROI V2 strawberry-picking demonstrations in LeRobot v3.0, with a documented path from direct RealSense capture to RGB observations and 7-D end-effector actions.">
-  <meta name="theme-color" content="#f5f2e9">
+  <title>SROI Datasets | Strawberry-picking demonstrations</title>
+  <meta name="description" content="Technical documentation for the SROI V2 strawberry-picking datasets: LeRobot releases, feature schema, source recordings, processing pipeline, and quality control.">
+  <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/png" href="images/icon.png">
   <link rel="stylesheet" href="../assets/sroi-pages.css">
-
   <meta property="og:url" content="https://agroboticsresearch.github.io/sroi_datasets/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="SROI Datasets — Strawberry-picking demonstrations for robot learning">
-  <meta property="og:description" content="The current SROI V2 LeRobot release, its exact data contract, provenance, and processing pipeline.">
-  <meta property="og:image" content="https://agroboticsresearch.github.io/sroi_datasets/images/v2/sample_color_frame.png">
-
+  <meta property="og:title" content="SROI V2 datasets">
+  <meta property="og:description" content="LeRobot releases and reproducible processing documentation for handheld strawberry-picking demonstrations.">
+  <meta property="og:image" content="https://agroboticsresearch.github.io/sroi_datasets/images/v2/pipeline/episode-050-poster.jpg">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NLS9R0S0P"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -36,7 +34,7 @@
         <a href="../sroi/">V1</a>
         <a href="../sroi_v2/">SROI V2</a>
         <a href="./" aria-current="page">Datasets</a>
-        <a class="nav-accent" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Get the data ↗</a>
+        <a class="nav-accent" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Dataset ↗</a>
       </nav>
     </div>
   </header>
@@ -46,341 +44,365 @@
       <div class="shell">
         <div class="hero-grid">
           <div>
-            <p class="eyebrow">Current release · LeRobot v3.0</p>
-            <h1>Human picks, <em>robot-ready</em> data.</h1>
-            <p class="hero-lede">
-              SROI turns handheld strawberry-picking demonstrations into synchronized RGB observations and end-effector actions. Start here for the final V2 training release; use the raw collection tree only when reproducing the processing pipeline.
-            </p>
+            <p class="eyebrow">SROI V2 dataset documentation</p>
+            <h1>Strawberry-picking demonstrations for end-effector policy learning</h1>
+            <p class="hero-lede">Synchronized first-person RGB observations and 7-D end-effector actions derived from handheld SROI V2 demonstrations. This page documents the released LeRobot data, its source recordings, and the processing decisions needed to reproduce it.</p>
             <div class="button-row">
-              <a class="button primary" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Open training set</a>
-              <a class="button" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation">Open validation set</a>
-              <a class="button internal" href="#pipeline">Understand the pipeline</a>
+              <a class="button primary" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Training release</a>
+              <a class="button" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation">Validation release</a>
+              <a class="button internal" href="#processing">Processing workflow</a>
             </div>
           </div>
 
-          <div class="hero-media" aria-label="A sample SROI V2 strawberry-picking episode">
-            <div class="hero-frame dataset">
-              <video autoplay muted loop playsinline controls poster="images/v2/sample_color_frame.png">
-                <source src="images/v2/v2_example_color.mp4" type="video/mp4">
+          <div>
+            <div class="hero-frame">
+              <video autoplay muted loop playsinline controls poster="images/v2/pipeline/episode-050-poster.jpg">
+                <source src="images/v2/pipeline/episode-050-color.mp4" type="video/mp4">
                 Your browser does not support embedded video.
               </video>
-            </div>
-            <div class="floating-note">
-              <strong>What the policy sees</strong>
-              One 640 × 480 RGB observation, paired at 30 Hz with the next end-effector pose and gripper value.
+              <div class="media-meta"><span>COLOR / 640 × 480 / 30 FPS</span><span>88 FRAMES / QC: OK</span></div>
             </div>
           </div>
         </div>
 
-        <div class="metrics" aria-label="Training dataset summary">
+        <div class="metrics" aria-label="Training release summary">
           <div class="metric"><strong>1,459</strong><span>training episodes</span></div>
           <div class="metric"><strong>140,522</strong><span>training frames</span></div>
-          <div class="metric"><strong>30 Hz</strong><span>synchronized rate</span></div>
+          <div class="metric"><strong>30 Hz</strong><span>sampling frequency</span></div>
           <div class="metric"><strong>7-D</strong><span>end-effector action</span></div>
-          <div class="metric"><strong>78.1 min</strong><span>frame time at 30 Hz</span></div>
+          <div class="metric"><strong>LeRobot v3.0</strong><span>release format</span></div>
         </div>
       </div>
     </section>
 
-    <section class="section tint" id="release">
+    <section class="section subtle" id="releases">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">01 / Choose a release</div>
-          <div class="section-copy">
-            <h2>Use V2 unless you specifically need ROS bags.</h2>
-            <p>The V2 pair has the same feature contract and shared gripper convention. The smaller collection is held out so evaluation stays separate from the main training release.</p>
+          <p class="section-label">01 / Releases</p>
+          <div>
+            <h2>Published V2 datasets</h2>
+            <p>The LeRobot repositories are the intended inputs for model development. The MP4 and PNG trees described later are source and processing records, not alternate training releases.</p>
           </div>
         </div>
 
         <div class="grid-2">
-          <article class="card release-card featured">
-            <span class="tag">Recommended · train</span>
-            <h3>SROI V2 lab picking</h3>
+          <article class="card release-card recommended">
+            <span class="status">Training</span>
+            <h3>SROI V2 laboratory picking</h3>
             <div class="dataset-id">zfff/sroiv2_strawberry_picking_lab_1459_occlusion</div>
-            <p>1,459 episodes · 140,522 frames. Includes the base collection plus targeted occluded-case additions, all converted to the same LeRobot v3.0 schema.</p>
-            <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Browse on Hugging Face</a>
+            <p>1,459 episodes and 140,522 frames. The release combines a 1,125-episode base set with 177 July and 157 August recordings selected to increase coverage of occluded picking cases.</p>
+            <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Open on Hugging Face</a>
           </article>
 
           <article class="card release-card">
-            <span class="tag">Held-out collection</span>
-            <h3>SROI V2 validation</h3>
+            <span class="status">Validation</span>
+            <h3>July 2026 validation collection</h3>
             <div class="dataset-id">zfff/sroiv2_strawberry_picking_lab_validation</div>
-            <p>100 episodes · 9,274 frames. A separately collected evaluation set with the same RGB observation, 7-D action, 30 Hz rate, and AV1 video encoding.</p>
-            <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation">Browse on Hugging Face</a>
+            <p>100 episodes and 9,274 frames from the separate 14 July 2026 recording. All 100 episodes were classified <code>ok</code> by the documented trajectory and gripper QC rules.</p>
+            <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation">Open on Hugging Face</a>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="contract">
+    <section class="section white" id="schema">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">02 / Data contract</div>
-          <div class="section-copy">
-            <h2>One visual observation. One compact action.</h2>
-            <p>The final release intentionally keeps only what the learning pipeline consumes. Stereo is crucial upstream for trajectory recovery, but it is not duplicated into the training observation.</p>
+          <p class="section-label">02 / Feature schema</p>
+          <div>
+            <h2>RGB observation and next-frame pose target</h2>
+            <p>Stereo infrared images are used to estimate motion during processing. They are not included in the final observation; the released policy input is the color stream.</p>
           </div>
         </div>
 
         <div class="contract">
           <article class="contract-card">
-            <div class="kicker">Observation</div>
-            <h3>First-person RGB</h3>
-            <p>The D405 color stream, encoded as AV1 video and exposed as <code>observation.images.camera</code>.</p>
-            <div class="tensor">video · <span>[480, 640, 3]</span> · 30 fps</div>
+            <p class="kicker">Observation</p>
+            <h3>First-person color image</h3>
+            <p>Intel RealSense D405 color frames encoded as AV1 video under <code>observation.images.camera</code>.</p>
+            <div class="tensor">video · [480, 640, 3] · yuv420p · 30 fps</div>
           </article>
 
           <article class="contract-card">
-            <div class="kicker">Action</div>
-            <h3>Next-frame EE target</h3>
-            <p>Camera-trajectory position and rotation vector, stored under the EE-labelled schema, plus normalized gripper opening. The final frame repeats its own target.</p>
-            <div class="tensor"><span>[</span> ee.x, ee.y, ee.z, ee.wx, ee.wy, ee.wz, ee.gripper_pos <span>]</span></div>
+            <p class="kicker">Action</p>
+            <h3>Transformed camera pose and gripper opening</h3>
+            <p>For each frame, the target is taken from the following frame; the final frame repeats its own target. Position and rotation are derived from the transformed D405 trajectory.</p>
+            <div class="tensor">[ee.x, ee.y, ee.z, ee.wx, ee.wy, ee.wz, ee.gripper_pos]</div>
           </article>
         </div>
 
-        <div class="note">
-          <strong>Important metadata details:</strong> <code>robot_type: so100</code> is a compatibility label written by the converter. These are handheld SROI demonstrations, not SO-100 joint-teleoperation logs. The <code>ee.*</code> names are also a learning-schema convention: the converter writes the transformed D405 camera pose directly to those fields. Camera-to-gripper-tip extrinsics are used for projection QC, not baked into the released action. No joint state is released, and <code>observation.state</code> is intentionally omitted.
-        </div>
+        <div class="note"><strong>Interpretation of the metadata.</strong> The <code>ee.*</code> labels are a learning-schema convention: the current converter writes the transformed D405 camera pose directly to these fields. The measured camera-to-gripper-tip transform is used for projection-based QC and is not composed into the released action. Likewise, <code>robot_type: so100</code> is a converter compatibility label; these are handheld SROI demonstrations, not SO-100 joint logs. No joint state or <code>observation.state</code> field is released.</div>
 
-        <div class="table-wrap" style="margin-top: 22px;">
+        <div class="table-wrap">
           <table class="data-table">
-            <thead>
-              <tr><th>Field</th><th>Meaning</th><th>Representation</th></tr>
-            </thead>
+            <thead><tr><th>Field</th><th>Definition</th><th>Type</th></tr></thead>
             <tbody>
-              <tr><td><code>ee.x/y/z</code></td><td>D405 camera-trajectory translation after conversion to X-forward, Y-left, Z-up axes</td><td>3 × float32</td></tr>
-              <tr><td><code>ee.wx/wy/wz</code></td><td>D405 camera orientation as a rotation vector derived from that transformed pose matrix</td><td>3 × float32</td></tr>
-              <tr><td><code>ee.gripper_pos</code></td><td>AprilTag-derived opening, normalized with one shared V2 reference range</td><td>float32 · 0 closed / 1 open</td></tr>
-              <tr><td><code>task</code></td><td>Single task label used across the release</td><td>“pick the strawberry”</td></tr>
+              <tr><td><code>observation.images.camera</code></td><td>D405 RGB image presented to the policy</td><td>video [480, 640, 3]</td></tr>
+              <tr><td><code>ee.x / ee.y / ee.z</code></td><td>Camera-trajectory translation after conversion to X-forward, Y-left, Z-up axes</td><td>3 × float32</td></tr>
+              <tr><td><code>ee.wx / ee.wy / ee.wz</code></td><td>Orientation of the transformed pose represented as a rotation vector</td><td>3 × float32</td></tr>
+              <tr><td><code>ee.gripper_pos</code></td><td>AprilTag-derived gripper opening; 0 is closed and 1 is open</td><td>float32 [0, 1]</td></tr>
+              <tr><td><code>task</code></td><td>Task vocabulary entry used by the release</td><td>“pick the strawberry”</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <section class="section tint" id="pipeline">
+    <section class="section subtle" id="processing">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">03 / Source to release</div>
-          <div class="section-copy">
-            <h2>Three recorded streams become one learning sample.</h2>
-            <p>The raw tree and the LeRobot tree serve different jobs. Raw MP4 and decoded PNG data preserve the evidence needed to estimate motion; the released dataset packages only RGB plus action.</p>
+          <p class="section-label">03 / Processing workflow</p>
+          <div>
+            <h2>From synchronized camera streams to LeRobot episodes</h2>
+            <p>The diagram and records below follow the implementation in <a href="https://github.com/AgRoboticsResearch/sroi_dataprocess">sroi_dataprocess</a>. Every visual is derived from validation episode 050 so the intermediate products can be compared directly.</p>
           </div>
         </div>
 
-        <div class="flow" aria-label="SROI V2 processing pipeline">
-          <article class="flow-step">
-            <span class="flow-no">01 · CAPTURE</span>
-            <h3>Direct RealSense recording</h3>
-            <p>D405 left IR, right IR, and color at 640 × 480 / 30 fps. Current Pi capture uses pyrealsense2, not ROS bags.</p>
-          </article>
-          <article class="flow-step">
-            <span class="flow-no">02 · DECODE</span>
-            <h3>Regenerable PNG tree</h3>
-            <p>MP4 sessions are decoded into a separate working tree. The raw compressed recordings remain unchanged.</p>
-          </article>
-          <article class="flow-step">
-            <span class="flow-no">03 · ESTIMATE</span>
-            <h3>Masked stereo SLAM</h3>
-            <p>The visible gripper is masked from both IR views before ORB-SLAM3 estimates the camera trajectory.</p>
-          </article>
-          <article class="flow-step">
-            <span class="flow-no">04 · ALIGN</span>
-            <h3>Pose + gripper</h3>
-            <p>Trajectory axes are converted; AprilTags in the color stream recover a normalized gripper signal.</p>
-          </article>
-          <article class="flow-step">
-            <span class="flow-no">05 · RELEASE</span>
-            <h3>QC + LeRobot</h3>
-            <p>Accepted episodes become AV1 RGB observations, Parquet actions, episode metadata, and statistics.</p>
-          </article>
+        <div class="pipeline-map" aria-label="Six-stage SROI processing workflow">
+          <div class="pipeline-node"><span>01</span><strong>Capture</strong><small>left IR · color · right IR</small></div>
+          <div class="pipeline-node"><span>02</span><strong>Decode</strong><small>MP4 → frame sequences</small></div>
+          <div class="pipeline-node"><span>03</span><strong>Reconstruct</strong><small>masked stereo ORB-SLAM3</small></div>
+          <div class="pipeline-node"><span>04</span><strong>Transform</strong><small>robot-aligned coordinates</small></div>
+          <div class="pipeline-node"><span>05</span><strong>Estimate gripper</strong><small>AprilTag separation</small></div>
+          <div class="pipeline-node"><span>06</span><strong>QC + convert</strong><small>LeRobot v3.0</small></div>
         </div>
 
-        <div class="branch-flow" aria-label="Raw and processed data relationship">
-          <div class="branch-box">
-            <h3>Raw / source of truth</h3>
-            <p><code>*-mp4/episode_N/</code><br>left.mp4 · right.mp4 · color.mp4 · hardware timestamps · camera calibration</p>
-          </div>
-          <div class="branch-arrow" aria-hidden="true">→</div>
-          <div class="branch-box">
-            <h3>Processing intermediates</h3>
-            <p><code>*-png/episode_N/</code><br>decoded frames · masked-SLAM trajectory · transformed pose · gripper distances · QC outputs</p>
-          </div>
-          <div class="branch-arrow" aria-hidden="true">→</div>
-          <div class="branch-box output">
-            <h3>Final / use this</h3>
-            <p><code>LeRobot v3.0</code><br>RGB video · 7-D action Parquet · episode/task metadata · dataset statistics</p>
-          </div>
+        <div class="example-banner">
+          <strong>Trace example: validation_20260714_160922 / episode_050</strong>
+          <span>88 frames · 32.5 cm recovered path · 0 missing gripper frames · QC category: ok</span>
         </div>
 
-        <div class="button-row">
-          <a class="button dark" href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Open processing pipeline</a>
-          <a class="button" href="https://github.com/AgRoboticsResearch/sroi_rasp_system">Open recorder system</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="inspect">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-index">04 / Inspect an episode</div>
-          <div class="section-copy">
-            <h2>See the distinction, frame by frame.</h2>
-            <p>The left video shows the released RGB view. The right montage shows all three raw streams used during processing; only the center color view enters the final observation.</p>
-          </div>
-        </div>
-
-        <div class="media-grid">
-          <figure class="media-card">
-            <video controls muted loop playsinline preload="metadata" poster="images/v2/sample_color_frame.png">
-              <source src="images/v2/v2_example_color.mp4" type="video/mp4">
-            </video>
-            <figcaption class="media-caption">Released observation · color RGB · 640 × 480 · 30 fps</figcaption>
-          </figure>
-          <figure class="media-card wide">
-            <video controls muted loop playsinline preload="metadata">
-              <source src="images/v2/v2_example_stereo.mp4" type="video/mp4">
-            </video>
-            <figcaption class="media-caption">Raw diagnostic montage · left IR / color / right IR</figcaption>
-          </figure>
-        </div>
-
-        <div class="plot-grid">
-          <figure class="plot-card">
-            <img src="images/v2/v2_overlay_projection.jpg" alt="Projected gripper-tip trajectory over an RGB observation">
-            <figcaption class="media-caption">Projection QC · gripper-tip path on the first-person view</figcaption>
-          </figure>
-          <figure class="plot-card">
-            <img src="images/v2/v2_trajectory_topdown.png" alt="Top-down ORB-SLAM3 trajectory plot">
-            <figcaption class="media-caption">Trajectory QC · transformed path for one demonstration</figcaption>
-          </figure>
-          <figure class="plot-card">
-            <img src="images/v2/gripper_signal_episode.jpg" alt="Normalized gripper opening over one episode">
-            <figcaption class="media-caption">Gripper QC · AprilTag-derived opening over time</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="section tint" id="provenance">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-index">05 / Provenance</div>
-          <div class="section-copy">
-            <h2>A merged release with one gripper convention.</h2>
-            <p>The 1,459-episode dataset is not a mystery folder. Its local release record identifies the inputs, official merge tool, counts, codec, and shared normalization range.</p>
-          </div>
-        </div>
-
-        <div class="provenance">
-          <article class="provenance-path">
-            <h3 style="margin:0;">Training release lineage</h3>
-            <p style="color:var(--muted);">The targeted additions increase representation of occluded picking cases; the dataset name does not imply every base episode is occluded.</p>
-            <div class="sum-row">
-              <div class="sum-part"><strong>1,125</strong><span>base, QC “ok”</span></div>
-              <div class="sum-part"><strong>177</strong><span>July occlusion cases</span></div>
-              <div class="sum-part"><strong>157</strong><span>August occlusion cases</span></div>
+        <div class="process-list">
+          <article class="process-step">
+            <div class="step-marker">01</div>
+            <div class="process-copy">
+              <p class="process-index">Direct acquisition</p>
+              <h3>Record three synchronized D405 streams</h3>
+              <p>The Raspberry Pi recorder uses <code>pyrealsense2</code> to capture left infrared, color, and right infrared at 640 × 480 and 30 fps. Hardware timestamps and per-stream calibration are stored with each episode. ROS is not part of the current V2 acquisition path.</p>
+              <dl class="io-grid">
+                <div class="io-row"><dt>Tool</dt><dd><code>record_realsense.py --encode-video</code></dd></div>
+                <div class="io-row"><dt>Output</dt><dd><code>left.mp4</code>, <code>color.mp4</code>, <code>right.mp4</code>, <code>timestamps.json</code>, camera calibration</dd></div>
+              </dl>
             </div>
-            <div class="sum-total"><strong>1,459 episodes</strong><br>140,522 frames · AV1 video</div>
+            <figure class="process-media">
+              <video controls muted loop playsinline preload="metadata">
+                <source src="images/v2/pipeline/01-three-stream-capture.mp4" type="video/mp4">
+              </video>
+              <figcaption class="media-caption">Raw synchronized recording · left IR / color / right IR · validation episode 050</figcaption>
+            </figure>
           </article>
 
-          <article class="card">
+          <article class="process-step">
+            <div class="step-marker">02</div>
+            <div class="process-copy">
+              <p class="process-index">Regenerable workspace</p>
+              <h3>Decode frames without modifying the raw recording</h3>
+              <p>Compressed MP4 streams are expanded into a separate PNG processing tree. Calibration, timestamps, and the generated ORB-SLAM camera configuration remain attached to the episode. The raw MP4 directory is retained as the acquisition record.</p>
+              <dl class="io-grid">
+                <div class="io-row"><dt>Tool</dt><dd><code>batches/decode_batch.sh</code> / <code>decode_videos.py</code></dd></div>
+                <div class="io-row"><dt>Output</dt><dd><code>left_*.png</code>, <code>color_*.png</code>, <code>right_*.png</code>, <code>times.txt</code></dd></div>
+              </dl>
+            </div>
+            <div class="process-media" role="img" aria-label="Comparison of raw MP4 episode files and decoded PNG working files">
+              <div class="metadata-visual">
+                <div class="metadata-pane">
+                  <h4>Raw episode / retained</h4>
+                  <div class="file-row"><span>left.mp4</span><span>IR1</span></div>
+                  <div class="file-row"><span>color.mp4</span><span>RGB</span></div>
+                  <div class="file-row"><span>right.mp4</span><span>IR2</span></div>
+                  <div class="file-row"><span>timestamps.json</span><span>clock</span></div>
+                  <div class="file-row"><span>camera_info_*.json</span><span>K, D</span></div>
+                </div>
+                <div class="metadata-pane">
+                  <h4>PNG workspace / regenerable</h4>
+                  <div class="file-row"><span>left_000000.png …</span><span>88</span></div>
+                  <div class="file-row"><span>color_000000.png …</span><span>88</span></div>
+                  <div class="file-row"><span>right_000000.png …</span><span>88</span></div>
+                  <div class="file-row"><span>times.txt</span><span>88</span></div>
+                  <div class="file-row"><span>orb_slam_*.yaml</span><span>D405</span></div>
+                </div>
+              </div>
+              <div class="media-caption">The MP4 store is the source of truth; decoded frames are a disposable processing product.</div>
+            </div>
+          </article>
+
+          <article class="process-step">
+            <div class="step-marker">03</div>
+            <div class="process-copy">
+              <p class="process-index">Stereo reconstruction</p>
+              <h3>Mask the gripper and estimate camera motion</h3>
+              <p>The known finger region is blacked out in temporary copies of both infrared streams. ORB-SLAM3 then reconstructs the camera trajectory from the remaining stereo features, avoiding feature tracks on the moving gripper. Original PNG frames are not altered.</p>
+              <dl class="io-grid">
+                <div class="io-row"><dt>Tools</dt><dd><code>apply_gripper_mask.py</code> + <code>orbslam_batch_local.sh</code></dd></div>
+                <div class="io-row"><dt>Config</dt><dd><code>configs/gripper_mask_sroi_v2_d405.json</code></dd></div>
+                <div class="io-row"><dt>Output</dt><dd><code>CameraTrajectory.txt</code> in KITTI 3 × 4 pose format</dd></div>
+              </dl>
+            </div>
+            <figure class="process-media">
+              <img src="images/v2/pipeline/03-masked-stereo.jpg" alt="Decoded left infrared frame beside the temporary gripper-masked ORB-SLAM input">
+              <figcaption class="media-caption">Frame 44 · decoded left IR compared with temporary masked SLAM input</figcaption>
+            </figure>
+          </article>
+
+          <article class="process-step">
+            <div class="step-marker">04</div>
+            <div class="process-copy">
+              <p class="process-index">Pose convention</p>
+              <h3>Convert the trajectory into robot-aligned axes</h3>
+              <p>The ORB-SLAM trajectory is transformed to the project convention: X forward, Y left, and Z up. Position and orientation from this transformed D405 camera pose become the first six action values during conversion.</p>
+              <dl class="io-grid">
+                <div class="io-row"><dt>Tool</dt><dd><code>transform_trajectory.py</code></dd></div>
+                <div class="io-row"><dt>Output</dt><dd><code>CameraTrajectoryTransformed.txt</code></dd></div>
+                <div class="io-row"><dt>QC view</dt><dd><code>visualization/visualize_traj_video.py</code></dd></div>
+              </dl>
+            </div>
+            <figure class="process-media">
+              <video controls muted loop playsinline preload="metadata">
+                <source src="images/v2/pipeline/04-trajectory-qc.mp4" type="video/mp4">
+              </video>
+              <figcaption class="media-caption">Projection check and recovered 3-D path · camera-to-tip extrinsics are used only in this QC view</figcaption>
+            </figure>
+          </article>
+
+          <article class="process-step">
+            <div class="step-marker">05</div>
+            <div class="process-copy">
+              <p class="process-index">Gripper state</p>
+              <h3>Estimate opening from the two finger tags</h3>
+              <p>AprilTag IDs 0 and 15 are detected in the lower region of each color image. Horizontal tag separation provides the raw opening signal, which is clipped and normalized to the [0, 1] convention used by the action vector.</p>
+              <dl class="io-grid">
+                <div class="io-row"><dt>Tool</dt><dd><code>gripper_estimation_april_tag.py</code></dd></div>
+                <div class="io-row"><dt>Output</dt><dd><code>gripper_distances.txt</code> and normalization provenance where available</dd></div>
+                <div class="io-row"><dt>Meaning</dt><dd><code>0 = closed</code>, <code>1 = open</code></dd></div>
+              </dl>
+            </div>
+            <figure class="process-media portrait">
+              <img src="images/v2/pipeline/05-gripper-signal.jpg" alt="Normalized gripper opening for validation episode 050, falling from open to closed">
+              <figcaption class="media-caption">Episode 050 · normalized opening transitions from approximately 0.98 to 0.03</figcaption>
+            </figure>
+          </article>
+
+          <article class="process-step">
+            <div class="step-marker">06</div>
+            <div class="process-copy">
+              <p class="process-index">Acceptance and packaging</p>
+              <h3>Review quality and create the LeRobot dataset</h3>
+              <p>QC classifies episodes using trajectory availability and length, gripper validity and variation, and final closure. Selected episodes are converted to AV1 RGB video, Parquet action records, episode indices, task metadata, and aggregate statistics.</p>
+              <dl class="io-grid">
+                <div class="io-row"><dt>Tools</dt><dd><code>visualization/qc.py</code> + <code>lerobot/sroi_to_lerobot.py</code></dd></div>
+                <div class="io-row"><dt>Filter</dt><dd><code>qc_categories=ok</code> for the documented releases</dd></div>
+                <div class="io-row"><dt>Output</dt><dd>LeRobot v3.0 dataset directory</dd></div>
+              </dl>
+            </div>
+            <div class="qc-summary">
+              <div class="qc-panel">
+                <div class="qc-status">EPISODE 050 / OK</div>
+                <ul class="fact-list">
+                  <li><strong>Trajectory</strong><span>88 / 88 frames</span></li>
+                  <li><strong>Path length</strong><span>32.5 cm</span></li>
+                  <li><strong>Gripper NaN</strong><span>0 frames</span></li>
+                  <li><strong>Signal range</strong><span>0.961</span></li>
+                </ul>
+              </div>
+              <pre class="file-tree"><span class="hot">data/</span>
+  chunk-000/file-000.parquet
+<span class="hot">videos/observation.images.camera/</span>
+  chunk-000/file-000.mp4
+<span class="hot">meta/</span>
+  info.json
+  stats.json
+  tasks.parquet
+  episodes/…</pre>
+            </div>
+          </article>
+        </div>
+
+        <div class="note"><strong>Normalization provenance.</strong> The 1,459-episode training release records a shared range of 84.0789–261.7803 detector pixels across all merged inputs. The July validation release’s <code>DATA_SOURCES.md</code> instead records a range pooled over its own 100 episodes. Current pipeline documentation recommends the fixed training-reference configuration <code>sroi_v2_d405_1000_onesb_range.json</code> when building new comparable V2 releases. These are distinct provenance statements and should not be conflated.</div>
+      </div>
+    </section>
+
+    <section class="section white" id="provenance">
+      <div class="shell">
+        <div class="section-head">
+          <p class="section-label">04 / Provenance</p>
+          <div>
+            <h2>Training release lineage</h2>
+            <p>The final local release record documents both merge operations, input counts, codec compatibility, shared gripper range, and the exact official LeRobot merge command.</p>
+          </div>
+        </div>
+
+        <div class="lineage">
+          <article class="lineage-block">
+            <h3>Composition of the 1,459-episode release</h3>
+            <p>“Occlusion” in the repository name describes the targeted additions; it does not indicate that every episode in the base collection contains an occlusion.</p>
+            <div class="sum-row">
+              <div class="sum-part"><strong>1,125</strong><span>base set / QC ok</span></div>
+              <div class="sum-part"><strong>177</strong><span>July additions</span></div>
+              <div class="sum-part"><strong>157</strong><span>August additions</span></div>
+            </div>
+            <div class="sum-total"><strong>1,459 episodes · 140,522 frames</strong><br>Official LeRobot merge operation · AV1 video copied unchanged</div>
+          </article>
+          <article class="lineage-block">
             <ul class="fact-list">
-              <li><strong>Episode length</strong><span>45–229 frames; median 91 frames (about 3.0 seconds)</span></li>
-              <li><strong>Shared normalization</strong><span>All inputs use the same gripper reference range: 84.0789–261.7803 detector pixels</span></li>
-              <li><strong>Merge implementation</strong><span>Official <code>lerobot_edit_dataset</code> merge operation, LeRobot 0.5.2</span></li>
-              <li><strong>Release snapshot</strong><span>LeRobot codebase format v3.0 · created 4 August 2026</span></li>
+              <li><strong>Created locally</strong><span>4 August 2026</span></li>
+              <li><strong>Merge tool</strong><span>LeRobot 0.5.2</span></li>
+              <li><strong>Video codec</strong><span>AV1 / yuv420p</span></li>
+              <li><strong>Shared gripper range</strong><span>84.0789–261.7803 px</span></li>
+              <li><strong>Task count</strong><span>1</span></li>
             </ul>
           </article>
         </div>
-      </div>
-    </section>
 
-    <section class="section" id="layout">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-index">06 / On disk</div>
-          <div class="section-copy">
-            <h2>The final tree is small and conventional.</h2>
-            <p>Parquet carries actions and index fields; MP4 carries RGB observations; metadata describes features, per-episode ranges, tasks, and aggregate statistics.</p>
-          </div>
-        </div>
-
-        <pre class="file-tree" aria-label="LeRobot dataset directory tree">sroiv2_strawberry_picking_lab_1459_occlusion/
-├── <span class="hot">data/chunk-000/file-000.parquet</span>            <span class="dim"># frame records + 7-D action</span>
-├── <span class="hot">videos/observation.images.camera/</span>
-│   └── chunk-000/file-000.mp4 … file-012.mp4  <span class="dim"># AV1 RGB</span>
-└── meta/
-    ├── info.json                                  <span class="dim"># schema + counts + paths</span>
-    ├── stats.json                                 <span class="dim"># aggregate statistics</span>
-    ├── tasks.parquet                              <span class="dim"># task vocabulary</span>
-    └── episodes/chunk-000/file-000.parquet        <span class="dim"># 1,459 rows</span></pre>
-
-        <div class="note">
-          <strong>Reproducibility boundary:</strong> the public LeRobot tree is the training artifact. To regenerate trajectories or change masking, calibration, gripper normalization, or QC criteria, return to the raw recordings and the <a href="https://github.com/AgRoboticsResearch/sroi_dataprocess">processing repository</a>.
+        <div class="button-row">
+          <a class="button primary" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Training dataset</a>
+          <a class="button" href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Processing repository</a>
+          <a class="button" href="https://github.com/AgRoboticsResearch/sroi_rasp_system">Acquisition repository</a>
         </div>
       </div>
     </section>
 
-    <section class="section tint" id="v1">
+    <section class="section subtle" id="v1">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">07 / Historical release</div>
-          <div class="section-copy">
-            <h2>SROI V1 remains available as ROS bags.</h2>
-            <p>Use the Zenodo archive when your work depends on the original multi-camera field recordings or ROS topics. It is a different release format and should not be confused with the V2 LeRobot pair above.</p>
-          </div>
-        </div>
-
-        <article class="archive-card">
+          <p class="section-label">05 / Earlier dataset</p>
           <div>
-            <h3>Original field dataset, preserved.</h3>
-            <p>V1 was collected at two strawberry farms from December 2024 to January 2025. It includes OAK-D-SR and RealSense D435i configurations, stereo imagery, IMU data, camera calibration, and action-segmentation status in ROS bags.</p>
-            <div class="button-row">
-              <a class="button primary" href="https://zenodo.org/records/15515834">Download V1 on Zenodo</a>
-              <a class="button" href="https://arxiv.org/html/2501.16717v1">Read the V1 paper</a>
-              <a class="button internal" href="../sroi/">Open V1 project page</a>
-            </div>
+            <h2>SROI V1 ROS bag archive</h2>
+            <p>The original SROI field collection is preserved separately on Zenodo. It uses ROS bags and OAK-D-SR or RealSense D435i sensor configurations; it is not schema-compatible with the V2 LeRobot releases above.</p>
           </div>
-          <div class="archive-facts">
-            <div class="archive-fact"><strong>OAK-D-SR</strong><span>1280 × 720 stereo RGB · 30 fps · 400 Hz IMU</span></div>
-            <div class="archive-fact"><strong>RealSense D435i</strong><span>848 × 480 stereo IR + RGB · 30 fps · accel / gyro IMU</span></div>
-            <div class="archive-fact"><strong>Workflow</strong><span>ROS bag recording → segmentation → extraction → SLAM / gripper processing</span></div>
-          </div>
-        </article>
-      </div>
-    </section>
+        </div>
 
-    <section class="section">
-      <div class="shell">
-        <div class="handoff">
-          <div class="handoff-grid">
-            <div>
-              <p class="eyebrow" style="color:#ffd5d8;">Ready to work with SROI?</p>
-              <h2>Download the final release, then trace anything uncertain back to source.</h2>
-              <p>Dataset questions: Zhenghao Fei · zfei@zju.edu.cn</p>
-            </div>
-            <div class="button-row">
-              <a class="button" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Training set</a>
-              <a class="button internal" href="../sroi_v2/">SROI V2 device</a>
-            </div>
-          </div>
+        <div class="grid-2">
+          <article class="card">
+            <p class="kicker">OAK-D-SR configuration</p>
+            <h3>Field stereo RGB and IMU</h3>
+            <p>1280 × 720 stereo RGB at 30 fps with 400 Hz IMU data, camera calibration, and action-segmentation state.</p>
+          </article>
+          <article class="card">
+            <p class="kicker">RealSense D435i configuration</p>
+            <h3>Stereo infrared, color, and IMU</h3>
+            <p>848 × 480 left/right infrared and RGB at 30 fps with accelerometer and gyroscope streams.</p>
+          </article>
+        </div>
+        <div class="button-row">
+          <a class="button primary" href="https://zenodo.org/records/15515834">Zenodo archive</a>
+          <a class="button" href="https://arxiv.org/html/2501.16717v1">V1 paper</a>
+          <a class="button internal" href="../sroi/">V1 project page</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="footer">
     <div class="shell footer-grid">
       <div>
         <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span>AgRoboticsResearch / SROI</span></a>
-        <div>Strawberry-picking data from capture to deployment.</div>
+        <div>Dataset contact: Zhenghao Fei · zfei@zju.edu.cn</div>
       </div>
       <div class="footer-links">
         <a href="../sroi_v2/">SROI V2</a>
         <a href="https://github.com/AgRoboticsResearch/sroi_v2">Hardware</a>
-        <a href="https://github.com/AgRoboticsResearch/sroi_rasp_system">Recorder</a>
         <a href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Processing</a>
+        <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Data</a>
       </div>
     </div>
   </footer>

@@ -3,18 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SROI V2 — Handheld teaching interface for strawberry harvesting</title>
-  <meta name="description" content="SROI V2 is an open, UMI-style strawberry-harvesting interface: collect human demonstrations by hand, learn from first-person data, and deploy from a matched camera viewpoint.">
-  <meta name="theme-color" content="#f5f2e9">
+  <title>SROI V2 | Handheld demonstration interface for strawberry harvesting</title>
+  <meta name="description" content="SROI V2 is an open handheld demonstration interface and robot-mounted end-effector design for collecting first-person strawberry-picking data.">
+  <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/jpeg" href="images/cover.jpg">
   <link rel="stylesheet" href="../assets/sroi-pages.css">
-
   <meta property="og:url" content="https://agroboticsresearch.github.io/sroi_v2/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="SROI V2 — Teach the harvest by hand">
-  <meta property="og:description" content="An open handheld data-acquisition device and robot-side strawberry-harvesting end effector.">
+  <meta property="og:title" content="SROI V2">
+  <meta property="og:description" content="Open hardware and data-acquisition system for strawberry-harvesting demonstrations.">
   <meta property="og:image" content="https://agroboticsresearch.github.io/sroi_v2/images/cover.jpg">
-
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NLS9R0S0P"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -36,7 +34,7 @@
         <a href="../sroi/">V1</a>
         <a href="./" aria-current="page">SROI V2</a>
         <a href="../sroi_datasets/">Datasets</a>
-        <a class="nav-accent" href="https://github.com/AgRoboticsResearch/sroi_v2">Build it ↗</a>
+        <a class="nav-accent" href="https://github.com/AgRoboticsResearch/sroi_v2">Repository ↗</a>
       </nav>
     </div>
   </header>
@@ -46,321 +44,252 @@
       <div class="shell">
         <div class="hero-grid">
           <div>
-            <p class="eyebrow">Open hardware · Version 2</p>
-            <h1>Teach the harvest <em>by hand.</em></h1>
-            <p class="hero-lede">
-              SROI V2 is a UMI-style interface built around a parallel strawberry gripper and an Intel RealSense D405. A person demonstrates the task with the handheld device; a robot-side build carries the same mechanism and camera geometry for deployment.
-            </p>
+            <p class="eyebrow">SROI V2 / open research hardware</p>
+            <h1>Handheld demonstration interface for robotic strawberry harvesting</h1>
+            <p class="hero-lede">SROI V2 combines a parallel gripper, Intel RealSense D405, and portable recorder to collect first-person picking demonstrations. Related handheld and robot-mounted configurations retain the same core mechanism and camera placement.</p>
             <div class="button-row">
-              <a class="button primary" href="https://github.com/AgRoboticsResearch/sroi_v2">Hardware &amp; assembly</a>
-              <a class="button internal" href="../sroi_datasets/">Explore the data</a>
-              <a class="button" href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Processing pipeline</a>
+              <a class="button primary" href="https://github.com/AgRoboticsResearch/sroi_v2">Hardware repository</a>
+              <a class="button internal" href="../sroi_datasets/">Dataset documentation</a>
+              <a class="button" href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Processing repository</a>
             </div>
           </div>
-
-          <div class="hero-media">
-            <div class="hero-frame device">
-              <img src="images/cover.jpg" alt="SROI V2 parallel gripper with an Intel RealSense D405 camera">
-            </div>
-            <div class="floating-note">
-              <strong>Design principle</strong>
-              Keep the camera-to-gripper geometry consistent from human collection to robot execution.
+          <div>
+            <div class="hero-frame">
+              <img src="images/cover.jpg" alt="SROI V2 parallel gripper and Intel RealSense D405 assembly">
+              <div class="media-meta"><span>PARALLEL GRIPPER / REALSENSE D405</span><span>VERSION 2</span></div>
             </div>
           </div>
         </div>
 
         <div class="metrics" aria-label="SROI V2 system summary">
-          <div class="metric"><strong>D405</strong><span>stereo IR + color</span></div>
-          <div class="metric"><strong>3 builds</strong><span>one mechanical core</span></div>
-          <div class="metric"><strong>30 Hz</strong><span>direct synchronized capture</span></div>
-          <div class="metric"><strong>7-D</strong><span>released EE action</span></div>
-          <div class="metric"><strong>1,459</strong><span>training episodes</span></div>
+          <div class="metric"><strong>D405</strong><span>stereo infrared + color</span></div>
+          <div class="metric"><strong>3</strong><span>mechanical configurations</span></div>
+          <div class="metric"><strong>640 × 480</strong><span>recorded resolution</span></div>
+          <div class="metric"><strong>30 Hz</strong><span>synchronized acquisition</span></div>
+          <div class="metric"><strong>Open</strong><span>CAD, BOM, and assembly guide</span></div>
         </div>
       </div>
     </section>
 
-    <section class="section tint" id="idea">
+    <section class="section subtle" id="overview">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">01 / The idea</div>
-          <div class="section-copy">
-            <h2>Collection, learning, and execution form one loop.</h2>
-            <p>The interface is designed to collect manipulation demonstrations without putting a robot in every scene. First-person vision and end-effector motion become the common language between the human-held and robot-mounted builds.</p>
+          <p class="section-label">01 / System overview</p>
+          <div>
+            <h2>Common sensing and mechanism across collection and execution</h2>
+            <p>The project separates the demonstration device from the robot arm while preserving the camera-to-gripper arrangement. This provides a consistent first-person observation geometry; robot kinematics and control remain separate deployment requirements.</p>
           </div>
         </div>
 
-        <div class="loop" aria-label="SROI collection to deployment loop">
-          <article class="loop-step">
-            <div class="loop-no">01 · COLLECT</div>
-            <h3>Demonstrate</h3>
-            <p>A person approaches, clears occlusions, and picks with the handheld gripper while synchronized D405 streams are recorded.</p>
+        <div class="system-loop" aria-label="SROI research workflow">
+          <article class="system-step">
+            <p class="process-index">01 / Demonstration</p>
+            <h3>Handheld collection</h3>
+            <p>An operator approaches and grasps a strawberry while synchronized D405 streams are recorded.</p>
           </article>
-          <article class="loop-step">
-            <div class="loop-no">02 · LEARN</div>
-            <h3>Train</h3>
-            <p>Masked stereo SLAM and AprilTag tracking recover camera motion and gripper opening, producing RGB + end-effector training pairs.</p>
+          <article class="system-step">
+            <p class="process-index">02 / Dataset</p>
+            <h3>Pose reconstruction</h3>
+            <p>Stereo visual SLAM and AprilTag tracking recover camera motion and gripper opening.</p>
           </article>
-          <article class="loop-step">
-            <div class="loop-no">03 · EXECUTE</div>
-            <h3>Deploy</h3>
-            <p>The motorized build presents a matched camera-to-gripper arrangement, reducing visual domain shift at the end effector.</p>
+          <article class="system-step">
+            <p class="process-index">03 / Deployment</p>
+            <h3>Robot-mounted end effector</h3>
+            <p>The motorized configuration provides a related observation and gripping geometry for policy execution.</p>
           </article>
         </div>
 
-        <div class="note">
-          <strong>What “matched viewpoint” does—and does not—mean:</strong> shared camera geometry helps transfer visual policies. The released data contains end-effector targets, not motor commands, so a deployment still needs robot kinematics, control, safety limits, and its own execution software.
-        </div>
+        <div class="note"><strong>Scope.</strong> The released dataset contains image observations and end-effector pose targets; it does not contain motor commands or joint trajectories. A deployed system still requires robot-specific kinematics, controllers, workspace limits, collision handling, and safety supervision.</div>
       </div>
     </section>
 
-    <section class="section" id="showcase">
+    <section class="section white" id="hardware">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">02 / In hand</div>
-          <div class="section-copy">
-            <h2>A field interface, not a lab-only teleoperator.</h2>
-            <p>The compact mechanism combines a D405 camera mount, parallel fingers on linear guides, AprilTags for gripper sensing, and a portable Raspberry Pi recorder.</p>
-          </div>
-        </div>
-
-        <div class="photo-mosaic">
-          <figure>
-            <img src="images/show-handheld-01.jpg" alt="SROI V2 held by an operator with the Raspberry Pi recorder attached">
-            <figcaption>Handheld collection</figcaption>
-          </figure>
-          <figure>
-            <img src="images/show-desktop-02.jpg" alt="Side view of the SROI V2 camera and gripper mechanism">
-            <figcaption>D405 geometry</figcaption>
-          </figure>
-          <figure>
-            <img src="images/show-handheld-03.jpg" alt="Operator actuating the SROI V2 gripper by hand">
-            <figcaption>Finger-coupled actuation</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="section tint" id="configurations">
-      <div class="shell">
-        <div class="section-head">
-          <div class="section-index">03 / Mechanical system</div>
-          <div class="section-copy">
-            <h2>One parallel-gripper core, three configurations.</h2>
-            <p>The fingers, links, linear guides, rail base, and camera relationship are shared. The drive source and the matching crank hub change with the role.</p>
+          <p class="section-label">02 / Hardware</p>
+          <div>
+            <h2>Three configurations based on one parallel-gripper core</h2>
+            <p>The linear guide, finger assemblies, links, rail base, and camera mount are shared. The actuation input and crank hub change according to the collection or execution role.</p>
           </div>
         </div>
 
         <div class="grid-3">
           <article class="card">
-            <span class="tag">Robot side</span>
-            <h3 style="margin-top:24px;">Joint-motor build</h3>
-            <p>A crank hub mates to a joint-motor flange such as the DM-4310J, creating the arm-mounted execution end effector.</p>
+            <p class="kicker">Robot-mounted</p>
+            <h3>Joint-motor configuration</h3>
+            <p>A crank hub connects to a joint-motor flange, including designs compatible with the DM-4310J, for installation on a robot arm.</p>
           </article>
           <article class="card">
-            <span class="tag">Portable collection</span>
-            <h3 style="margin-top:24px;">Slide-control handheld</h3>
-            <p>A slide control actuates the fingers while the battery and Raspberry Pi are integrated into the device body.</p>
+            <p class="kicker">Handheld / integrated</p>
+            <h3>Slide-control configuration</h3>
+            <p>A slide control actuates the gripper. The Raspberry Pi and power module are integrated into the portable collection assembly.</p>
           </article>
           <article class="card">
-            <span class="tag">Lightweight collection</span>
-            <h3 style="margin-top:24px;">Finger-coupled handheld</h3>
-            <p>Thumb and index-finger motion directly drives the gripper; power and recording hardware remain off the gripper body.</p>
+            <p class="kicker">Handheld / lightweight</p>
+            <h3>Finger-coupled configuration</h3>
+            <p>Thumb and index-finger motion directly actuates the gripper while the power and recording components remain separate.</p>
           </article>
+        </div>
+
+        <div class="photo-mosaic" style="margin-top:18px;">
+          <figure>
+            <img src="images/show-handheld-01.jpg" alt="Operator holding the SROI V2 demonstration device">
+            <figcaption>Integrated handheld collection configuration</figcaption>
+          </figure>
+          <figure>
+            <img src="images/show-desktop-02.jpg" alt="Side view of the SROI V2 camera and parallel gripper">
+            <figcaption>D405 and gripper geometry</figcaption>
+          </figure>
+          <figure>
+            <img src="images/show-handheld-03.jpg" alt="Finger-coupled SROI V2 gripper actuation">
+            <figcaption>Finger-coupled actuation</figcaption>
+          </figure>
         </div>
 
         <div class="button-row">
-          <a class="button dark" href="https://github.com/AgRoboticsResearch/sroi_v2">Assembly guide, CAD &amp; BOM</a>
+          <a class="button primary" href="https://github.com/AgRoboticsResearch/sroi_v2">CAD and assembly guide</a>
+          <a class="button" href="https://github.com/AgRoboticsResearch/sroi_v2/blob/main/BOM.md">Bill of materials</a>
         </div>
       </div>
     </section>
 
-    <section class="section dark" id="stack">
+    <section class="section subtle" id="demonstration">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">04 / Open stack</div>
-          <div class="section-copy">
-            <h2>The project is four connected releases.</h2>
-            <p>Hardware, acquisition, processing, and dataset each have a clear boundary. Follow the layer that matches the change you want to make.</p>
+          <p class="section-label">03 / Demonstration example</p>
+          <div>
+            <h2>Representative SROI V2 picking sequence</h2>
+            <p>This example is episode 050 from the 100-episode validation recording collected on 14 July 2026. It replaces the earlier site video and is also used to illustrate every processing stage on the dataset page.</p>
           </div>
         </div>
 
-        <div class="grid-4">
-          <article class="card stack-card">
-            <div class="stack-no">01 · MECHANISM</div>
-            <h3>SROI V2 hardware</h3>
-            <p>CAD assemblies, 3D-printable parts, bill of materials, and the complete seven-step build guide.</p>
-            <a class="card-link" href="https://github.com/AgRoboticsResearch/sroi_v2">Open hardware repo</a>
-          </article>
-          <article class="card stack-card">
-            <div class="stack-no">02 · ACQUISITION</div>
-            <h3>Pi recorder</h3>
-            <p>Direct pyrealsense2 capture, physical-button state machine, e-paper status, MP4 output, and deployment notes.</p>
-            <a class="card-link" href="https://github.com/AgRoboticsResearch/sroi_rasp_system">Open recorder repo</a>
-          </article>
-          <article class="card stack-card">
-            <div class="stack-no">03 · PROCESSING</div>
-            <h3>SROI data process</h3>
-            <p>Decoding, masked ORB-SLAM3, pose conversion, AprilTag gripper extraction, QC, and LeRobot conversion.</p>
-            <a class="card-link" href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Open pipeline repo</a>
-          </article>
-          <article class="card stack-card">
-            <div class="stack-no">04 · RELEASE</div>
-            <h3>LeRobot datasets</h3>
-            <p>The 1,459-episode training set, 100-episode held-out collection, exact feature contract, and provenance.</p>
-            <a class="card-link internal" href="../sroi_datasets/">Open dataset guide</a>
-          </article>
+        <div class="grid-2">
+          <figure class="process-media">
+            <video controls muted loop playsinline preload="metadata" poster="../sroi_datasets/images/v2/pipeline/episode-050-poster.jpg">
+              <source src="../sroi_datasets/images/v2/pipeline/episode-050-color.mp4" type="video/mp4">
+            </video>
+            <figcaption class="media-caption">Color stream · validation_20260714_160922 / episode_050 · 88 frames</figcaption>
+          </figure>
+          <figure class="process-media">
+            <video controls muted loop playsinline preload="metadata">
+              <source src="../sroi_datasets/images/v2/pipeline/01-three-stream-capture.mp4" type="video/mp4">
+            </video>
+            <figcaption class="media-caption">Synchronized source streams · left IR / color / right IR</figcaption>
+          </figure>
+        </div>
+
+        <figure class="process-media" style="margin-top:18px;">
+          <video controls muted loop playsinline preload="metadata">
+            <source src="../sroi_datasets/images/v2/pipeline/04-trajectory-qc.mp4" type="video/mp4">
+          </video>
+          <figcaption class="media-caption">Trajectory overlay · projected future gripper-tip path on RGB (left) and transformed 3-D camera trajectory (right)</figcaption>
+        </figure>
+
+        <div class="button-row">
+          <a class="button primary internal" href="../sroi_datasets/#processing">View the complete processing trace</a>
         </div>
       </div>
     </section>
 
-    <section class="section" id="recorder">
+    <section class="section white" id="acquisition">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">05 / Acquisition</div>
-          <div class="section-copy">
-            <h2>The current recorder is direct, synchronized, and untethered.</h2>
-            <p>A Raspberry Pi 5 captures D405 left IR, right IR, and color streams directly through <code>pyrealsense2</code>. The e-paper display and physical button run alongside the recorder without putting ROS or Docker in the current data path.</p>
+          <p class="section-label">04 / Acquisition</p>
+          <div>
+            <h2>Direct RealSense recording on Raspberry Pi</h2>
+            <p>The current recorder acquires all three D405 streams through <code>pyrealsense2</code>. A physical button controls the session and episode state; an e-paper display reports status and storage information.</p>
           </div>
         </div>
 
         <div class="recorder-layout">
-          <figure class="recorder-photo" style="margin:0;">
-            <img src="images/step1-rpi-05.jpg" alt="Compact Raspberry Pi recorder enclosure with e-paper display">
+          <figure class="recorder-photo">
+            <img src="images/step1-rpi-05.jpg" alt="SROI Raspberry Pi enclosure with e-paper status display">
           </figure>
-
-          <div class="timeline" aria-label="Physical recorder workflow">
+          <div class="timeline" aria-label="Recorder state sequence">
             <article class="timeline-item">
-              <h3>Long press · start a session</h3>
-              <p>The recorder initializes the camera and moves from Idle to Ready. Session output is timestamped and stored locally.</p>
+              <h3>Initialize a recording session</h3>
+              <p>The camera is configured and a timestamped session directory is created.</p>
             </article>
             <article class="timeline-item">
-              <h3>Short press · start an episode</h3>
-              <p>Synchronized IR1, IR2, and color frames are buffered and recorded at 640 × 480 / 30 fps.</p>
+              <h3>Start an episode</h3>
+              <p>Left IR, right IR, and color frames are acquired synchronously at 640 × 480 and 30 fps.</p>
             </article>
             <article class="timeline-item">
-              <h3>Short press · finish the episode</h3>
-              <p>The episode is encoded to H.264 MP4 with hardware timestamps, camera intrinsics, and the generated ORB-SLAM camera config.</p>
+              <h3>Finalize the episode</h3>
+              <p>Streams are encoded to H.264 MP4; hardware timestamps, camera intrinsics, and an ORB-SLAM configuration are saved alongside them.</p>
             </article>
             <article class="timeline-item">
-              <h3>Long press · close the session</h3>
-              <p>The display summarizes episodes and storage. MP4 remains the raw source; decoding happens later in a separate working tree.</p>
+              <h3>Process offline</h3>
+              <p>The raw MP4 tree is retained. Decoding, visual SLAM, gripper extraction, QC, and LeRobot conversion run later in a separate workspace.</p>
             </article>
           </div>
         </div>
 
-        <div class="note">
-          <strong>Legacy boundary:</strong> the older ROS + Ubuntu 20.04 Docker recorder is retained for SROI V1 compatibility. New V2 recordings use the direct RealSense path described above.
-        </div>
+        <div class="note"><strong>Version boundary.</strong> SROI V1 used a ROS and Ubuntu 20.04 Docker recording workflow. Current SROI V2 recordings use direct RealSense acquisition and do not require ROS or Docker in the capture path.</div>
       </div>
     </section>
 
-    <section class="section tint" id="data-path">
+    <section class="section dark" id="software">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">06 / Data path</div>
-          <div class="section-copy">
-            <h2>Stereo estimates motion. Color carries the task.</h2>
-            <p>The distinction matters: all three streams are recorded, but each has a specific downstream role. The public learning artifact contains one RGB stream and a 7-D action.</p>
+          <p class="section-label">05 / Project components</p>
+          <div>
+            <h2>Hardware, acquisition, processing, and data are versioned separately</h2>
+            <p>Each repository has a defined responsibility. This separation keeps mechanical revisions, recorder deployment, offline data processing, and published datasets independently traceable.</p>
           </div>
         </div>
 
-        <div class="branch-flow">
-          <div class="branch-box">
-            <h3>Left + right IR</h3>
-            <p>Gripper-masked stereo frames feed ORB-SLAM3. The result is a camera pose trajectory in a stable metric stereo scale.</p>
-          </div>
-          <div class="branch-arrow" aria-hidden="true">↘</div>
-          <div class="branch-box">
-            <h3>Processing + QC</h3>
-            <p>Axes are converted to X-forward / Y-left / Z-up. AprilTags in color estimate the gripper. QC filters unusable episodes.</p>
-          </div>
-          <div class="branch-arrow" aria-hidden="true">→</div>
-          <div class="branch-box output">
-            <h3>LeRobot v3.0</h3>
-            <p>640 × 480 RGB video + next-frame <code>xyz</code>, rotation vector, and normalized gripper action at 30 Hz.</p>
-          </div>
-        </div>
-
-        <div class="media-grid" style="margin-top:28px;">
-          <figure class="media-card wide">
-            <video controls muted loop playsinline preload="metadata">
-              <source src="../sroi_datasets/images/v2/v2_example_stereo.mp4" type="video/mp4">
-            </video>
-            <figcaption class="media-caption">Raw collection montage · left IR / color / right IR</figcaption>
-          </figure>
-          <figure class="media-card">
-            <img src="../sroi_datasets/images/v2/v2_overlay_projection.jpg" alt="Recovered gripper-tip trajectory projected onto the color image">
-            <figcaption class="media-caption">QC projection · recovered motion on RGB</figcaption>
-          </figure>
-        </div>
-
-        <div class="button-row">
-          <a class="button primary internal" href="../sroi_datasets/#contract">Read the exact dataset contract</a>
-          <a class="button" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Open training release</a>
+        <div class="repo-grid">
+          <article class="repo-card">
+            <p class="repo-kind">Hardware</p>
+            <h3>SROI V2</h3>
+            <p>CAD assemblies, printable parts, bill of materials, and assembly instructions.</p>
+            <a class="card-link" href="https://github.com/AgRoboticsResearch/sroi_v2">Repository</a>
+          </article>
+          <article class="repo-card">
+            <p class="repo-kind">Acquisition</p>
+            <h3>SROI Raspberry Pi system</h3>
+            <p>Direct D405 capture, physical-button state machine, display integration, and deployment scripts.</p>
+            <a class="card-link" href="https://github.com/AgRoboticsResearch/sroi_rasp_system">Repository</a>
+          </article>
+          <article class="repo-card">
+            <p class="repo-kind">Processing</p>
+            <h3>SROI data process</h3>
+            <p>Decoding, masked ORB-SLAM3, coordinate conversion, gripper estimation, QC, and LeRobot conversion.</p>
+            <a class="card-link" href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Repository</a>
+          </article>
+          <article class="repo-card">
+            <p class="repo-kind">Release</p>
+            <h3>SROI datasets</h3>
+            <p>Feature schema, release lineage, validation data, processing trace, and V1 archive references.</p>
+            <a class="card-link internal" href="../sroi_datasets/">Documentation</a>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="versions">
+    <section class="section subtle" id="credits">
       <div class="shell">
         <div class="section-head">
-          <div class="section-index">07 / Version boundary</div>
-          <div class="section-copy">
-            <h2>V2 is a redesign, not a bag-format update.</h2>
-            <p>The original SROI system remains useful and documented. Choose one generation end-to-end; camera geometry, acquisition, processing configuration, and release format are generation-specific.</p>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead>
-              <tr><th>Layer</th><th>SROI V1</th><th>SROI V2 / current</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><strong>End effector</strong></td><td>Compact cut-and-hold device with modular camera / tool design</td><td>Parallel fingers, linkage, and linear-guide core in three configurations</td></tr>
-              <tr><td><strong>Cameras</strong></td><td>OAK-D-SR or RealSense D435i</td><td>RealSense D405</td></tr>
-              <tr><td><strong>Acquisition</strong></td><td>ROS bags through the legacy Pi / Docker stack</td><td>Direct pyrealsense2 capture to H.264 MP4</td></tr>
-              <tr><td><strong>Trajectory</strong></td><td>Stereo / stereo-inertial processing, depending on camera and experiment</td><td>Gripper-masked stereo ORB-SLAM3; AprilTag gripper from color</td></tr>
-              <tr><td><strong>Public data</strong></td><td><a href="https://zenodo.org/records/15515834">Zenodo ROS-bag archive</a></td><td><a href="../sroi_datasets/">Hugging Face LeRobot v3.0 releases</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="button-row">
-          <a class="button internal" href="../sroi/">Visit SROI V1</a>
-          <a class="button" href="https://arxiv.org/html/2501.16717v1">Read the V1 paper</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section tint">
-      <div class="shell">
-        <div class="handoff">
-          <div class="handoff-grid">
-            <div>
-              <p class="eyebrow" style="color:#ffd5d8;">Open from mechanism to metadata</p>
-              <h2>Build the interface, or begin with the released demonstrations.</h2>
-              <p>Zenan Sheng · Linsheng Hou · Zhenghao Fei — Zhejiang University<br>Contact: zfei@zju.edu.cn</p>
-            </div>
-            <div class="button-row">
-              <a class="button" href="https://github.com/AgRoboticsResearch/sroi_v2">Build SROI V2</a>
-              <a class="button internal" href="../sroi_datasets/">Use the dataset</a>
-            </div>
+          <p class="section-label">06 / Project information</p>
+          <div>
+            <h2>Authors and contact</h2>
+            <p>SROI V2 was developed by Zenan Sheng, Linsheng Hou, and Zhenghao Fei at Zhejiang University. For technical questions, contact Zhenghao Fei at <a href="mailto:zfei@zju.edu.cn">zfei@zju.edu.cn</a> or open an issue in the relevant repository.</p>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="footer">
     <div class="shell footer-grid">
       <div>
         <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span>AgRoboticsResearch / SROI</span></a>
-        <div>Open interfaces for robot learning in agriculture.</div>
+        <div>Zhejiang University</div>
       </div>
       <div class="footer-links">
         <a href="https://github.com/AgRoboticsResearch/sroi_v2">Hardware</a>
-        <a href="https://github.com/AgRoboticsResearch/sroi_rasp_system">Recorder</a>
+        <a href="https://github.com/AgRoboticsResearch/sroi_rasp_system">Acquisition</a>
         <a href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Processing</a>
         <a href="../sroi_datasets/">Datasets</a>
       </div>
