@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SROI Datasets | Strawberry-picking demonstrations</title>
-  <meta name="description" content="Technical documentation for the SROI V2 strawberry-picking datasets: LeRobot releases, feature schema, source recordings, processing pipeline, and quality control.">
+  <title>Strawberry Robotics Operation Datasets</title>
+  <meta name="description" content="Three distinct strawberry-picking dataset families: SROI V1 field ROS bags, SROI V2 handheld LeRobot demonstrations, and SCARA real-robot LeRobot demonstrations.">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/png" href="images/icon.png">
   <link rel="stylesheet" href="../assets/sroi-pages.css">
   <meta property="og:url" content="https://agroboticsresearch.github.io/sroi_datasets/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="SROI V2 datasets">
-  <meta property="og:description" content="LeRobot releases and reproducible processing documentation for handheld strawberry-picking demonstrations.">
+  <meta property="og:title" content="Strawberry Robotics Operation Datasets">
+  <meta property="og:description" content="SROI V1 field ROS bags, SROI V2 handheld demonstrations, and SCARA real-robot demonstrations—organized by collection source.">
   <meta property="og:image" content="https://agroboticsresearch.github.io/sroi_datasets/images/v2/pipeline/episode-050-poster.jpg">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NLS9R0S0P"></script>
   <script>
@@ -21,20 +21,19 @@
     gtag('config', 'G-1NLS9R0S0P');
   </script>
 </head>
-<body>
+<body class="datasets-page">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="shell nav-wrap">
       <a class="brand" href="../" aria-label="AgRoboticsResearch home">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span>AgRoboticsResearch / SROI</span>
+        <span>AgRoboticsResearch / Datasets</span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="../sroi/">V1</a>
         <a href="../sroi_v2/">SROI V2</a>
         <a href="./" aria-current="page">Datasets</a>
-        <a class="nav-accent" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Dataset ↗</a>
       </nav>
     </div>
   </header>
@@ -44,33 +43,25 @@
       <div class="shell">
         <div class="hero-grid">
           <div>
-            <p class="eyebrow">SROI V2 dataset documentation</p>
-            <h1>Strawberry-picking demonstrations for end-effector policy learning</h1>
-            <p class="hero-lede">Synchronized first-person RGB observations and 7-D end-effector actions derived from handheld SROI V2 demonstrations. This page documents the released LeRobot data, its source recordings, and the processing decisions needed to reproduce it.</p>
-            <div class="button-row">
-              <a class="button primary" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Training release</a>
-              <a class="button" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation">Validation release</a>
-              <a class="button internal" href="#processing">Processing workflow</a>
-            </div>
+            <h1>Strawberry Robotics Operation Datasets</h1>
+            <p class="hero-lede">This page lists strawberry-picking datasets collected with three systems: SROI V1, SROI V2, and a SCARA robot. The datasets differ in collection hardware, storage format, observations, and actions. The sections after the dataset list document the SROI V2 processing pipeline.</p>
           </div>
 
           <div>
-            <div class="hero-frame">
+            <figure class="hero-frame dataset-video">
               <video autoplay muted loop playsinline controls poster="images/v2/pipeline/episode-050-poster.jpg">
                 <source src="images/v2/pipeline/episode-050-color.mp4" type="video/mp4">
                 Your browser does not support embedded video.
               </video>
-              <div class="media-meta"><span>COLOR / 640 × 480 / 30 FPS</span><span>88 FRAMES / QC: OK</span></div>
-            </div>
+              <figcaption class="media-meta"><span>SROI V2 EXAMPLE / COLOR / 640 × 480 / 30 FPS</span><span>VALIDATION EPISODE 050</span></figcaption>
+            </figure>
           </div>
         </div>
 
-        <div class="metrics" aria-label="Training release summary">
-          <div class="metric"><strong>1,459</strong><span>training episodes</span></div>
-          <div class="metric"><strong>140,522</strong><span>training frames</span></div>
-          <div class="metric"><strong>30 Hz</strong><span>sampling frequency</span></div>
-          <div class="metric"><strong>7-D</strong><span>end-effector action</span></div>
-          <div class="metric"><strong>LeRobot v3.0</strong><span>release format</span></div>
+        <div class="metrics family-metrics" aria-label="Dataset families by collection source">
+          <div class="metric"><strong>SROI V1</strong><span>original handheld field collection · ROS bags</span></div>
+          <div class="metric"><strong>SROI V2</strong><span>D405 handheld collection · camera-pose actions</span></div>
+          <div class="metric"><strong>SCARA</strong><span>teleoperated real robot · joint-space actions</span></div>
         </div>
       </div>
     </section>
@@ -78,29 +69,89 @@
     <section class="section subtle" id="releases">
       <div class="shell">
         <div class="section-head">
-          <p class="section-label">01 / Releases</p>
+          <p class="section-label">01 / Datasets</p>
           <div>
-            <h2>Published V2 datasets</h2>
-            <p>The LeRobot repositories are the intended inputs for model development. The MP4 and PNG trees described later are source and processing records, not alternate training releases.</p>
+            <h2>Data sources and formats</h2>
+            <p>The datasets were recorded with three different collection systems. SROI V1 is distributed as ROS bags. SROI V2 and SCARA data are distributed in LeRobot v3.0 format with different observation and action schemas.</p>
           </div>
         </div>
 
-        <div class="grid-2">
-          <article class="card release-card recommended">
-            <span class="status">Training</span>
-            <h3>SROI V2 laboratory picking</h3>
-            <div class="dataset-id">zfff/sroiv2_strawberry_picking_lab_1459_occlusion</div>
-            <p>1,459 episodes and 140,522 frames. The release combines a 1,125-episode base set with 177 July and 157 August recordings selected to increase coverage of occluded picking cases.</p>
-            <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Open on Hugging Face</a>
-          </article>
+        <div class="release-group">
+          <div class="release-group-head">
+            <p class="kicker">SROI V1</p>
+            <h3>Original handheld field recordings</h3>
+            <p>Demonstrations collected with the original handheld SROI device in real agricultural settings. The archive preserves synchronized sensor streams as ROS bags rather than LeRobot episodes. See the <a href="#v1">sensor details below</a>.</p>
+          </div>
+          <div class="grid-2">
+            <article class="card release-card full">
+              <span class="status">Zenodo archive</span>
+              <h3>SROI V1 ROS bag collection</h3>
+              <div class="dataset-id">zenodo.org/records/15515834</div>
+              <p>Original field demonstrations recorded with OAK-D-SR or RealSense D435i configurations. The bags contain stereo/RGB sensing, IMU streams, calibration, and collection-state records; they require the V1 ROS-bag processing path.</p>
+              <a class="card-link" href="https://zenodo.org/records/15515834">Open on Zenodo</a>
+            </article>
+          </div>
+        </div>
 
-          <article class="card release-card">
-            <span class="status">Validation</span>
-            <h3>July 2026 validation collection</h3>
-            <div class="dataset-id">zfff/sroiv2_strawberry_picking_lab_validation</div>
-            <p>100 episodes and 9,274 frames from the separate 14 July 2026 recording. All 100 episodes were classified <code>ok</code> by the documented trajectory and gripper QC rules.</p>
-            <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation">Open on Hugging Face</a>
-          </article>
+        <div class="release-group">
+          <div class="release-group-head">
+            <p class="kicker">SROI V2</p>
+            <h3>Handheld D405 demonstrations</h3>
+            <p>Human demonstrations recorded with the D405-equipped SROI V2 device. Each frame pairs first-person RGB with a 7-D transformed pose and gripper-opening action; no robot arm is involved during collection.</p>
+          </div>
+          <div class="grid-2">
+            <article class="card release-card">
+              <span class="status">Training</span>
+              <h3>SROI V2 laboratory picking</h3>
+              <div class="dataset-id">zfff/sroiv2_strawberry_picking_lab_1459_occlusion</div>
+              <p>1,459 episodes and 140,522 frames. The release combines a 1,125-episode base set with 177 July and 157 August recordings selected to increase coverage of occluded picking cases.</p>
+              <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Open on Hugging Face</a>
+            </article>
+
+            <article class="card release-card">
+              <span class="status">Validation</span>
+              <h3>July 2026 validation collection</h3>
+              <div class="dataset-id">zfff/sroiv2_strawberry_picking_lab_validation</div>
+              <p>100 episodes and 9,274 frames from the separate 14 July 2026 recording. All 100 episodes were classified <code>ok</code> by the documented trajectory and gripper QC rules.</p>
+              <a class="card-link" href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_validation">Open on Hugging Face</a>
+            </article>
+          </div>
+        </div>
+
+        <div class="release-group">
+          <div class="release-group-head">
+            <p class="kicker">SCARA</p>
+            <h3>Teleoperated robot demonstrations</h3>
+            <p>Human-teleoperated demonstrations from a 4-DoF SCARA arm. These releases provide a 4-D joint state, a 5-D joint-and-gripper action, and multi-view RGB observations in LeRobot v3.0 format.</p>
+          </div>
+          <div class="grid-2">
+            <article class="card release-card">
+              <span class="status">Paper experiments</span>
+              <h3>Clustered strawberry picking</h3>
+              <div class="dataset-id">zfff/strawberry_picking_dataset_scara_clustered</div>
+              <p>511 episodes and 119,830 frames collected in a controlled physical mock-up with clustered fruit and occlusions. This is the dataset associated with <a href="https://arxiv.org/abs/2509.14530"><em>Learning to Pick</em></a>.</p>
+              <a class="card-link" href="https://huggingface.co/datasets/zfff/strawberry_picking_dataset_scara_clustered">Open on Hugging Face</a>
+            </article>
+
+            <article class="card release-card">
+              <span class="status">Additional data</span>
+              <h3>SCARA extra tasks and setups</h3>
+              <div class="dataset-id">zfff/strawberry_picking_dataset_scara_extra</div>
+              <p>659 episodes and 127,470 frames across eight source datasets and 21 session tasks. The unified <code>top</code>, <code>wrist</code>, and <code>wrist_down</code> schema uses black frames where a source camera was absent. These data were not used in the paper experiments.</p>
+              <a class="card-link" href="https://huggingface.co/datasets/zfff/strawberry_picking_dataset_scara_extra">Open on Hugging Face</a>
+            </article>
+          </div>
+        </div>
+
+        <div class="table-wrap family-table">
+          <table class="data-table">
+            <thead><tr><th>Dataset family</th><th>Collection source</th><th>Release format</th><th>Data representation</th></tr></thead>
+            <tbody>
+              <tr><td><strong>SROI V1</strong></td><td>Original handheld SROI device in field settings</td><td>ROS bags</td><td>Synchronized camera, IMU, calibration, and collection-state streams</td></tr>
+              <tr><td><strong>SROI V2</strong></td><td>D405-equipped handheld SROI V2 device in laboratory settings</td><td>LeRobot v3.0</td><td>First-person RGB and 7-D transformed camera-pose/gripper actions</td></tr>
+              <tr><td><strong>SCARA</strong></td><td>Human-teleoperated 4-DoF SCARA robot</td><td>LeRobot v3.0</td><td>Multi-view RGB, 4-D joint state, and 5-D joint/gripper actions</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -108,9 +159,9 @@
     <section class="section white" id="schema">
       <div class="shell">
         <div class="section-head">
-          <p class="section-label">02 / Feature schema</p>
+          <p class="section-label">02 / SROI V2 schema</p>
           <div>
-            <h2>RGB observation and next-frame pose target</h2>
+            <h2>SROI V2 RGB observation and next-frame pose target</h2>
             <p>Stereo infrared images are used to estimate motion during processing. They are not included in the final observation; the released policy input is the color stream.</p>
           </div>
         </div>
@@ -151,7 +202,7 @@
     <section class="section subtle" id="processing">
       <div class="shell">
         <div class="section-head">
-          <p class="section-label">03 / Processing workflow</p>
+          <p class="section-label">03 / SROI V2 processing</p>
           <div>
             <h2>From synchronized camera streams to LeRobot episodes</h2>
             <p>The diagram and records below follow the implementation in <a href="https://github.com/AgRoboticsResearch/sroi_dataprocess">sroi_dataprocess</a>. Every visual is derived from validation episode 050 so the intermediate products can be compared directly.</p>
@@ -324,7 +375,7 @@
     <section class="section white" id="provenance">
       <div class="shell">
         <div class="section-head">
-          <p class="section-label">04 / Provenance</p>
+          <p class="section-label">04 / SROI V2 provenance</p>
           <div>
             <h2>Training release lineage</h2>
             <p>The final local release record documents both merge operations, input counts, codec compatibility, shared gripper range, and the exact official LeRobot merge command.</p>
@@ -364,26 +415,37 @@
     <section class="section subtle" id="citation">
       <div class="shell">
         <div class="section-head">
-          <p class="section-label">05 / Citation</p>
+          <p class="section-label">05 / Publications</p>
           <div>
-            <h2>Citing SROI</h2>
-            <p>If you use the SROI datasets in your research, you are welcome to cite the following publication.</p>
+            <h2>Related papers by dataset family</h2>
+            <p>Publication links are listed by collection system. Dataset-specific citation guidance is available in each repository.</p>
           </div>
         </div>
 
-        <article class="lineage-block">
-          <p>Hou, L., Lu, W., Wang, Y., Peng, C., &amp; Fei, Z. (2025). Strawberry Robotic Operation Interface: An Open-Source Device for Collecting Dexterous Manipulation Data in Robotic Strawberry Cultivation. <em>IFAC-PapersOnLine, 59</em>(23), 303–308.</p>
-        </article>
+        <div class="grid-2">
+          <article class="lineage-block">
+            <p class="kicker">SROI V1 and SROI V2 context</p>
+            <h3>Strawberry Robotic Operation Interface</h3>
+            <p>Hou, L., Lu, W., Wang, Y., Peng, C., &amp; Fei, Z. (2025). Strawberry Robotic Operation Interface: An Open-Source Device for Collecting Dexterous Manipulation Data in Robotic Strawberry Cultivation. <em>IFAC-PapersOnLine, 59</em>(23), 303–308.</p>
+            <a class="card-link" href="https://arxiv.org/abs/2501.16717">Open paper</a>
+          </article>
+          <article class="lineage-block">
+            <p class="kicker">SCARA clustered dataset</p>
+            <h3>Learning to Pick</h3>
+            <p>Fei, Z., Lu, W., Hou, L., Ye, Z., &amp; Peng, C. (2026). Learning to Pick: A Visuomotor Policy for Clustered Strawberry Picking. <em>IEEE Transactions on AgriFood Electronics</em>. The SCARA extra dataset was not used in this paper’s experiments.</p>
+            <a class="card-link" href="https://arxiv.org/abs/2509.14530">Open paper</a>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="section white" id="v1">
       <div class="shell">
         <div class="section-head">
-          <p class="section-label">06 / Earlier dataset</p>
+          <p class="section-label">06 / SROI V1 details</p>
           <div>
-            <h2>SROI V1 ROS bag archive</h2>
-            <p>The original SROI field collection is preserved separately on Zenodo. It uses ROS bags and OAK-D-SR or RealSense D435i sensor configurations; it is not schema-compatible with the V2 LeRobot releases above.</p>
+            <h2>SROI V1 sensor configurations</h2>
+            <p>The original SROI field collection is preserved on Zenodo. It uses ROS bags, OAK-D-SR or RealSense D435i sensor configurations, and its own processing workflow.</p>
           </div>
         </div>
 
@@ -411,14 +473,14 @@
   <footer class="footer">
     <div class="shell footer-grid">
       <div>
-        <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span>AgRoboticsResearch / SROI</span></a>
+        <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span>AgRoboticsResearch / Datasets</span></a>
         <div>Dataset contact: Zhenghao Fei · zfei@zju.edu.cn</div>
       </div>
       <div class="footer-links">
         <a href="../sroi_v2/">SROI V2</a>
         <a href="https://github.com/AgRoboticsResearch/sroi_v2">Hardware</a>
         <a href="https://github.com/AgRoboticsResearch/sroi_dataprocess">Processing</a>
-        <a href="https://huggingface.co/datasets/zfff/sroiv2_strawberry_picking_lab_1459_occlusion">Data</a>
+        <a href="#releases">Data releases</a>
       </div>
     </div>
   </footer>
